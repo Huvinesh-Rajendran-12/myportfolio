@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import PixelRobot from '@/components/PixelRobot';
 import ContentDisplay from '@/components/ContentDisplay';
 import Navigation from '@/components/Navigation';
@@ -8,9 +8,16 @@ import { portfolioData, sectionKeys } from '@/components/portfolioData'; // Impo
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<string>('about'); // Default section
+  // State for showing/hiding keyboard shortcut help
+  const [showKeyboardHelp, setShowKeyboardHelp] = useState<boolean>(false);
 
   const handleNavigate = (sectionId: string) => {
     setActiveSection(sectionId);
+  };
+  
+  // Toggle keyboard help panel
+  const toggleKeyboardHelp = () => {
+    setShowKeyboardHelp(prev => !prev);
   };
 
   // Get current section data based on activeSection
@@ -28,8 +35,66 @@ export default function Home() {
     }
   }, [activeSection]);
 
+  // Keyboard shortcut handler
+  useEffect(() => {
+    // Map section keys to their keyboard shortcuts
+    const keyboardShortcuts: Record<string, string> = {
+      'a': 'about',
+      's': 'skills',
+      'p': 'projects',
+      'c': 'contact'
+    };
+    
+    // Handle keyboard shortcuts
+    const handleKeyPress = (event: KeyboardEvent) => {
+      // Check if user is typing in an input field or text area
+      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
+        return; // Don't intercept typing in form elements
+      }
+      
+      const key = event.key.toLowerCase();
+      
+      // Handle F1 key for help panel
+      if (key === 'f1' || key === 'escape') {
+        // Prevent default browser behavior for F1
+        event.preventDefault();
+        
+        if (key === 'f1') {
+          // Toggle help panel
+          setShowKeyboardHelp(prev => !prev);
+        } else if (key === 'escape' && showKeyboardHelp) {
+          // Close help panel on ESC
+          setShowKeyboardHelp(false);
+        }
+        return;
+      }
+      
+      // Check if the pressed key matches any of our shortcuts
+      if (keyboardShortcuts[key]) {
+        setActiveSection(keyboardShortcuts[key]);
+        // If help panel is open, close it
+        if (showKeyboardHelp) {
+          setShowKeyboardHelp(false);
+        }
+      }
+    };
+    
+    // Add event listener
+    window.addEventListener('keydown', handleKeyPress);
+    
+    // Remove event listener on cleanup
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [showKeyboardHelp]); // Add showKeyboardHelp to the dependency array
+
+
+
   return (
-    <div className="vintage-monitor-container">
+    <>
+      {/* Circuit glow effect for background */}
+      <div className="circuit-glow"></div>
+      <div className="vintage-monitor-container">
       {/* Monitor bezel with old-school design */}
       <div className="monitor-bezel">
         {/* Monitor brand label */}
@@ -72,7 +137,56 @@ export default function Home() {
           onNavigate={handleNavigate}
           sections={sectionKeys} // Pass section keys to generate buttons
         />
+        
+        {/* Keyboard shortcuts button and panel */}
+        <div className="keyboard-shortcuts-container">
+          <button 
+            onClick={toggleKeyboardHelp}
+            className="keyboard-help-button"
+          >
+            [F1] Help
+          </button>
+          
+          {showKeyboardHelp && (
+            <div className="keyboard-help-panel">
+              <div className="help-panel-header">
+                <h3>Keyboard Shortcuts</h3>
+                <button onClick={toggleKeyboardHelp} className="close-help-btn">X</button>
+              </div>
+              <div className="help-panel-content">
+                <table className="shortcuts-table">
+                  <tbody>
+                    <tr>
+                      <td className="key">A</td>
+                      <td className="desc">About section</td>
+                    </tr>
+                    <tr>
+                      <td className="key">S</td>
+                      <td className="desc">Skills section</td>
+                    </tr>
+                    <tr>
+                      <td className="key">P</td>
+                      <td className="desc">Projects section</td>
+                    </tr>
+                    <tr>
+                      <td className="key">C</td>
+                      <td className="desc">Contact section</td>
+                    </tr>
+                    <tr>
+                      <td className="key">F1</td>
+                      <td className="desc">Toggle this help panel</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="help-panel-footer">
+                Press any key to navigate. Press ESC to close this panel.
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
+    </>
   );
 }

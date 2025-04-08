@@ -1,43 +1,54 @@
 @import "tailwindcss";
 
-/* --- Purple Sunset Synthwave Theme CSS Variables --- */
+/* --- Soothing Retro Theme CSS Variables --- */
 :root {
-    --bg-gradient: linear-gradient(to bottom, #480a6e, #a12a8a, #ff8c00); /* Purple -> Pink -> Orange */
-    --monitor-bg: #2a2a3a; /* Dark desaturated purple */
-    --monitor-border: #1a1a2a;
-    --screen-bg: #100515; /* Very dark purple */
-    --screen-border: #440044;
-    --text-color: #00ffff; /* Neon Cyan */
-    --text-glow: rgba(0, 255, 255, 0.5);
-    --header-color: #ff00ff; /* Neon Pink */
-    --header-glow: rgba(255, 0, 255, 0.6);
-    --link-color: #ffff00; /* Neon Yellow */
-    --link-hover-color: #fff;
-    --list-marker-color: #ff80ff; /* Light Pink */
-    --nav-bg: #331144;
-    --nav-border: #552266;
-    --nav-text: #ff00ff; /* Pink */
-    --nav-hover-bg: #552266;
-    --nav-hover-text: #ff80ff; /* Lighter Pink */
-    --nav-active-bg: #00ffff; /* Cyan */
-    --nav-active-text: #100515; /* Dark */
-    --robot-body: #444; /* Dark Gray */
-    --robot-border: #222;
-    --robot-joint: #ff00ff; /* Pink joints */
-    --robot-accent: #ffff00; /* Yellow accents */
-    --robot-eye: #00ffff; /* Cyan eye */
-    --robot-eye-border: #00aaaa;
+    --bg-gradient: linear-gradient(to bottom, #2c3e50, #4a6670, #6b8e9a); /* Midnight Blue -> Steel Blue */
+    --monitor-bg: #34495e; /* Dark slate */
+    --monitor-border: #2c3e50;
+    --screen-bg: #0a1922; /* Deep navy */
+    --screen-border: #1c3144;
+    --text-color: #7fdbca; /* Soft teal */
+    --text-glow: rgba(127, 219, 202, 0.4);
+    --header-color: #b0c4de; /* Light steel blue */
+    --header-glow: rgba(176, 196, 222, 0.5);
+    --link-color: #bada55; /* Soft lime */
+    --link-hover-color: #d4e6a5;
+    --list-marker-color: #a3c8c4; /* Dusty teal */
+    --nav-bg: #2c3e50;
+    --nav-border: #34495e;
+    --nav-text: #7fdbca; /* Soft teal */
+    --nav-hover-bg: #3d556c;
+    --nav-hover-text: #a3c8c4; /* Dusty teal */
+    --nav-active-bg: #b0c4de; /* Light steel blue */
+    --nav-active-text: #0a1922; /* Deep navy */
+    --robot-body: #465a65; /* Slate gray */
+    --robot-border: #2c3e50;
+    --robot-joint: #7fdbca; /* Soft teal joints */
+    --robot-accent: #bada55; /* Soft lime accents */
+    --robot-eye: #a3c8c4; /* Dusty teal eye */
+    --robot-eye-border: #7fdbca;
     --cursor-color: var(--text-color);
-    --scrollbar-track: #440044;
+    --scrollbar-track: #2c3e50;
     --scrollbar-thumb: var(--header-color);
     --font-press-start-2p: 'Press Start 2P', cursive; /* Define font variable */
     --font-inter: 'Inter', sans-serif; /* Define font variable */
 }
 
 /* Base Body Styles */
+/* Create retro circuit board background with gradient wave */
+@keyframes slowPulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+@keyframes circuitFlow {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+}
+
 body {
     font-family: var(--font-press-start-2p); /* Use variable */
-    background: #070715 url('https://i.gifer.com/origin/d5/d567a5c19ef2d1070efc954b4ffca6d5_w200.gif');
+    background-color: #0a192f; /* Deep blue base */
     color: var(--text-color);
     display: flex; /* Use flex for centering */
     justify-content: center;
@@ -47,6 +58,64 @@ body {
     font-size: 10px;
     line-height: 1.8;
     overflow-x: hidden;
+    position: relative;
+}
+
+/* Main circuit gradient background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a192f 0%, #112240 50%, #1a1a2e 100%);
+    z-index: -2;
+}
+
+/* Circuit pattern overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        /* Horizontal circuit traces */
+        linear-gradient(90deg, transparent 97%, rgba(78, 204, 243, 0.15) 97%),
+        /* Vertical circuit traces */
+        linear-gradient(0deg, transparent 97%, rgba(78, 204, 243, 0.15) 97%),
+        /* Diagonal trace lines */
+        linear-gradient(45deg, rgba(236, 64, 122, 0.05) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(78, 204, 243, 0.05) 25%, transparent 25%),
+        /* Circuit nodes - blue */
+        radial-gradient(circle at 100px 100px, rgba(78, 204, 243, 0.3) 2px, transparent 5px),
+        /* Circuit nodes - purple-pink */
+        radial-gradient(circle at 200px 200px, rgba(236, 64, 122, 0.3) 2px, transparent 5px);
+    background-size: 50px 50px, 50px 50px, 100px 100px, 100px 100px, 400px 400px, 400px 400px;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+/* Glowing circuit path */
+.circuit-glow {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent 20%, 
+        rgba(78, 204, 243, 0.1) 40%, 
+        rgba(142, 68, 173, 0.2) 50%, 
+        rgba(236, 64, 122, 0.1) 60%, 
+        transparent 80%);
+    background-size: 200% 100%;
+    transform: skewX(-45deg);
+    animation: circuitFlow 15s linear infinite;
+    z-index: -1;
+    pointer-events: none;
 }
 
 /* Vintage Monitor Container */
@@ -60,13 +129,13 @@ body {
 /* Monitor Bezel */
 .monitor-bezel {
     width: 100%;
-    background-color: #c0c0c0; /* Old cream-colored computer */
+    background-color: #34495e; /* Dark slate bezel */
     border-radius: 15px 15px 5px 5px;
     padding: 15px;
     box-shadow: 
         0 0 10px rgba(0, 0, 0, 0.5),
         0 10px 20px rgba(0, 0, 0, 0.5); 
-    border: 2px solid #a0a0a0;
+    border: 2px solid #2c3e50;
     border-bottom-width: 25px;
     position: relative;
 }
@@ -77,8 +146,8 @@ body {
     bottom: -22px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #a0a0a0;
-    color: #333;
+    background-color: #4a6670;
+    color: #b0c4de;
     font-size: 8px;
     font-weight: bold;
     letter-spacing: 1px;
@@ -95,18 +164,18 @@ body {
     display: flex;
     align-items: center;
     font-size: 7px;
-    color: #333;
+    color: #7fdbca;
     font-family: "Arial", sans-serif;
 }
 
 .power-button {
     width: 15px;
     height: 15px;
-    background: #333;
+    background: #2c3e50;
     border-radius: 50%;
     margin-right: 5px;
     position: relative;
-    border: 1px solid #000;
+    border: 1px solid #1c3144;
     cursor: pointer;
 }
 
@@ -114,12 +183,12 @@ body {
     position: absolute;
     width: 5px;
     height: 5px;
-    background-color: #50ff50;
+    background-color: #bada55;
     border-radius: 50%;
     top: 5px;
     left: 5px;
     animation: blink-power 2s infinite alternate;
-    box-shadow: 0 0 3px #50ff50;
+    box-shadow: 0 0 3px #bada55;
 }
 
 @keyframes blink-power {
@@ -144,9 +213,9 @@ body {
 .control-knob {
     width: 10px;
     height: 10px;
-    background: #333;
+    background: #34495e;
     border-radius: 50%;
-    border: 1px solid #000;
+    border: 1px solid #1c3144;
     position: relative;
     cursor: pointer;
 }
@@ -156,7 +225,7 @@ body {
     position: absolute;
     width: 1px;
     height: 6px;
-    background: #fff;
+    background: #7fdbca;
     top: 2px;
     left: 4.5px;
 }
@@ -165,14 +234,14 @@ body {
     display: flex;
     flex-direction: column;
     font-size: 5px;
-    color: #333;
+    color: #7fdbca;
     font-family: "Arial", sans-serif;
 }
 
 /* CRT Screen with curved effect */
 .crt-screen {
     background-color: var(--monitor-bg);
-    border: 15px solid #333;
+    border: 15px solid #1c3144;
     border-radius: 10px;
     overflow: hidden;
     position: relative;
@@ -181,7 +250,7 @@ body {
     /* Add curvature with pseudo-elements and box-shadow */
     box-shadow: 
         inset 0 0 20px rgba(0, 0, 0, 0.8),
-        inset 0 0 100px rgba(0, 0, 0, 0.5);
+        inset 0 0 100px rgba(10, 25, 34, 0.5);
 }
 
 /* Screen Curve Effect */
@@ -207,10 +276,19 @@ body {
     overflow-y: auto;
     position: relative;
     color: var(--text-color);
-    box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.2); /* Inner cyan glow */
+    box-shadow: inset 0 0 15px rgba(127, 219, 202, 0.2); /* Inner teal glow */
     text-shadow: 0 0 5px var(--text-glow); /* Text glow */
     height: 100%;
     width: 100%;
+    
+    /* Add blueprint background to screen */
+    background-image: 
+        /* Circuit grid lines */
+        linear-gradient(to right, rgba(127, 219, 202, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(127, 219, 202, 0.03) 1px, transparent 1px),
+        /* Small IC pattern */
+        radial-gradient(circle at 15px 15px, rgba(127, 219, 202, 0.05) 1px, transparent 1px);
+    background-size: 10px 10px, 10px 10px, 30px 30px;
 }
 
 /* CRT Effects */
@@ -224,15 +302,15 @@ body {
     left: 0;
     background: linear-gradient(
         to bottom,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0.3) 50%,
-        rgba(0, 0, 0, 0) 100%
+        rgba(10, 25, 34, 0) 0%,
+        rgba(10, 25, 34, 0.2) 50%,
+        rgba(10, 25, 34, 0) 100%
     );
     background-size: 100% 4px;
     z-index: 10;
     pointer-events: none;
     animation: scanlines 8s linear infinite;
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 @keyframes scanlines {
@@ -249,8 +327,8 @@ body {
     height: 140%;
     background: radial-gradient(
         ellipse at center,
-        rgba(255, 255, 255, 0.2) 0%,
-        rgba(255, 255, 255, 0) 60%
+        rgba(176, 196, 222, 0.15) 0%,
+        rgba(176, 196, 222, 0) 60%
     );
     transform: rotate(-20deg);
     pointer-events: none;
@@ -265,7 +343,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    box-shadow: inset 0 0 30px 10px rgba(0, 0, 0, 0.7);
+    box-shadow: inset 0 0 30px 10px rgba(10, 25, 34, 0.6);
     pointer-events: none;
     z-index: 3;
 }
@@ -278,7 +356,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(18, 16, 16, 0.1);
+    background: rgba(10, 25, 34, 0.05);
     opacity: 0;
     z-index: 30;
     pointer-events: none;
@@ -422,14 +500,118 @@ body {
 
 /* Monitor Panel - contains navigation */
 .monitor-panel {
-    background-color: #c0c0c0;
+    background-color: #4a6670;
     padding: 8px 15px;
     border-radius: 0 0 15px 15px;
-    border: 2px solid #a0a0a0;
+    border: 2px solid #34495e;
     margin-top: -5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+/* Keyboard Shortcuts Help */
+.keyboard-shortcuts-container {
+    position: relative;
+}
+
+.keyboard-help-button {
+    background-color: #34495e;
+    border: 2px outset #2c3e50;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 10px;
+    color: #7fdbca;
+    padding: 2px 8px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.keyboard-help-button:active {
+    border-style: inset;
+}
+
+.keyboard-help-panel {
+    position: absolute;
+    right: 10px;
+    bottom: 40px;
+    width: 300px;
+    background-color: #34495e;
+    border: 2px outset #2c3e50;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    color: #7fdbca;
+}
+
+.help-panel-header {
+    background-color: #2c3e50; /* Dark slate header */
+    color: #b0c4de;
+    font-weight: bold;
+    padding: 4px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.help-panel-header h3 {
+    margin: 0;
+    font-size: 12px;
+}
+
+.close-help-btn {
+    background-color: #4a6670;
+    border: 1px outset #34495e;
+    font-size: 10px;
+    width: 16px;
+    height: 16px;
+    display: flex;
     justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #7fdbca;
+}
+
+.close-help-btn:active {
+    border-style: inset;
+}
+
+.help-panel-content {
+    padding: 10px;
+}
+
+.shortcuts-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.shortcuts-table tr:nth-child(odd) {
+    background-color: #efefef;
+}
+
+.shortcuts-table td {
+    padding: 4px 8px;
+    font-size: 11px;
+}
+
+.shortcuts-table .key {
+    font-weight: bold;
+    text-align: center;
+    width: 40px;
+    background-color: #2c3e50;
+    border: 1px inset #1c3144;
+    border-radius: 3px;
+    color: #b0c4de;
+}
+
+.help-panel-footer {
+    border-top: 1px solid #2c3e50;
+    padding: 8px;
+    font-size: 10px;
+    text-align: center;
+    font-style: italic;
+    background-color: #3d556c;
 }
 
 /* 90s Table Navigation */
@@ -442,20 +624,20 @@ body {
 }
 
 .nav-cell {
-    background-color: #000080; /* Navy blue - Windows 95 style */
-    color: #ffffff;
+    background-color: #2c3e50; /* Dark slate - soothing style */
+    color: #7fdbca;
     text-align: center;
     padding: 5px 8px;
     cursor: pointer;
-    border: 2px outset #aaaaaa; /* Classic raised button effect */
+    border: 2px outset #34495e; /* Classic raised button effect */
     font-family: "MS Sans Serif", Arial, sans-serif;
     font-size: 10px;
     transition: all 0.15s;
 }
 
 .nav-cell:hover {
-    background-color: #0000aa;
-    border-color: #ffffff;
+    background-color: #3d556c;
+    border-color: #a3c8c4;
 }
 
 .nav-cell:active {
@@ -464,8 +646,8 @@ body {
 }
 
 .active-cell {
-    background-color: #aa0000; /* Red for active tab */
-    border: 2px inset #880000;
+    background-color: #6b8e9a; /* Steel blue for active tab */
+    border: 2px inset #4a6670;
     font-weight: bold;
 }
 
@@ -480,7 +662,7 @@ body {
 
 .hotkey {
     text-decoration: underline;
-    color: #ffff00; /* Yellow for hotkey */
+    color: #bada55; /* Soft lime for hotkey */
 }
 
 /* Text Navigation (Ring Style) */
