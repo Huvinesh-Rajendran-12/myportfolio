@@ -1,0 +1,202 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-04-08",
+    "author": "Huvinesh Rajendran",
+    "theme": "synthwave"
+  },
+  "sections": {
+    "about": {
+      "title": "ABOUT_ME.TXT",
+      "displayOrder": 1,
+      "icon": "user",
+      "content": {
+        "header": "ABOUT_ME.TXT",
+        "introduction": "Welcome to my computer!",
+        "bio": "I am a Software Engineer specializing in Machine Learning.\nMy core mission is building intelligent systems from data.",
+        "highlights": [
+          "Passionate about building Intelligent Systems that make the GPUs go Brrrr...",
+          "Always learning and exploring new algorithms, techniques and languages",
+          "Focused on creating scalable, production-ready ML systems.",
+          "A self-proclaimed Math nerd",
+          ""
+        ],
+        "currentLocation": "Kuala Lumpur, Malaysia",
+        "interests": [
+          "Deep Learning",
+          "Computer Vision",
+          "Natural Language Processing",
+          "Reinforcement Learning"
+        ]
+      },
+      "formatting": {
+        "useMarkdown": true,
+        "highlightColor": "#7fdbca"
+      }
+    },
+    "skills": {
+      "title": "SKILLS.DAT",
+      "displayOrder": 2,
+      "icon": "code",
+      "content": {
+        "header": "SKILLS.DAT",
+        "categories": [
+          {
+            "name": "Languages",
+            "items": [
+              {
+                "name": "Python",
+                "proficiency": "Expert",
+                "years": 5
+              },
+              {
+                "name": "TypeScript",
+                "proficiency": "Advanced",
+                "years": 4
+              },
+              {
+                "name": "SQL",
+                "proficiency": "Advanced",
+                "years": 4
+              },
+              {
+                "name": "Ruby",
+                "proficiency": "Intermediate",
+                "years": 2
+              },
+              {
+                "name": "Haskell",
+                "proficiency": "Intermediate",
+                "years": 1
+              }
+            ]
+          },
+          {
+            "name": "Frameworks & Libraries",
+            "items": [
+              "TensorFlow / Keras",
+              "Jax",
+              "PyTorch",
+              "Scikit-learn",
+              "Pandas / NumPy / Polars",
+              "React / Next.js",
+              "Node.js",
+              "FastAPI",
+              "Django"
+            ]
+          },
+          {
+            "name": "Platforms & Tools",
+            "items": [
+              "AWS (SageMaker, EC2, S3)",
+              "GCP (AI Platform, Compute)",
+              "Docker",
+              "Kubernetes",
+              "Git",
+              "CI/CD Pipelines",
+              "MLflow"
+            ]
+          }
+        ]
+      },
+      "formatting": {
+        "useMarkdown": true,
+        "listStyle": "arrow"
+      }
+    },
+    "projects": {
+      "title": "PROJECTS.LOG",
+      "displayOrder": 3,
+      "icon": "folder",
+      "content": {
+        "header": "PROJECTS.LOG",
+        "projects": [
+          {
+            "title": "Protein Structure Prediction Model",
+            "description": "Built a scalable REST API for protein structure prediction with automatic scaling and monitoring.",
+            "technologies": ["Python", "PyTorch", "Docker", "Kubernetes", "TensorFlow Serving"],
+            "link": "#",
+            "linkText": "ACCESS_LOG://PROJECT_PROTEINS",
+            "featured": true,
+            "year": 2024
+          },
+          {
+            "title": "Data Visualization Dashboard",
+            "description": "Developed a web application for visualizing complex datasets with interactive filtering and exploration capabilities.",
+            "technologies": ["React", "D3.js", "TypeScript", "Node.js", "Express"],
+            "link": "#",
+            "linkText": "ACCESS_LOG://PROJECT_BETA",
+            "featured": true,
+            "year": 2023
+          },
+          {
+            "title": "Predictive Maintenance System",
+            "description": "Created an IoT-based system that predicts equipment failures before they occur using sensor data and machine learning.",
+            "technologies": ["Python", "PyTorch", "Time Series Analysis", "MQTT", "AWS IoT"],
+            "link": "#",
+            "linkText": "ACCESS_LOG://PROJECT_GAMMA",
+            "featured": false,
+            "year": 2022
+          }
+        ]
+      },
+      "formatting": {
+        "useMarkdown": true,
+        "projectStyle": "card"
+      }
+    },
+    "contact": {
+      "title": "CONTACT.INF",
+      "displayOrder": 4,
+      "icon": "mail",
+      "content": {
+        "header": "CONTACT.INF",
+        "introduction": "Let's connect!",
+        "channels": [
+          {
+            "type": "email",
+            "value": "huvineshrajendran@gmail.com",
+            "link": "mailto:huvineshrajendran@gmail.com",
+            "icon": "mail"
+          },
+          {
+            "type": "linkedin",
+            "value": "/in/huvinesh-rajendran",
+            "link": "https://linkedin.com/in/huvinesh-rajendran",
+            "icon": "linkedin"
+          },
+          {
+            "type": "github",
+            "value": "/huvinesh",
+            "link": "https://github.com/Huvinesh-Rajendran-12",
+            "icon": "github"
+          },
+          {
+            "type": "gitlab",
+            "value": "/huvinesh",
+            "link": "https://gitlab.com/Huvinesh-Rajendran-12",
+            "icon": "gitlab"
+          }
+        ],
+        "availability": "Open to opportunities"
+      },
+      "formatting": {
+        "useMarkdown": true,
+        "iconSize": "medium"
+      }
+    }
+  },
+  "config": {
+    "navigation": {
+      "style": "terminal",
+      "showIcons": true,
+      "animationSpeed": "medium"
+    },
+    "display": {
+      "typingEffect": true,
+      "typingSpeed": 5,
+      "showCursor": true,
+      "terminalPrompt": "user@synthwave:~$ "
+    }
+  }
+}

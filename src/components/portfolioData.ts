@@ -1,4 +1,4 @@
-// Define structure for portfolio items
+// Define types for the structured portfolio data
 export interface PortfolioItem {
     title: string;
     content: string; // Content now includes HTML for icons in contact section
@@ -9,6 +9,101 @@ export interface PortfolioData {
     [key: string]: PortfolioItem;
 }
 
+// Define types for our JSON structure
+interface PortfolioJSON {
+    metadata: {
+        version: string;
+        lastUpdated: string;
+        author: string;
+        theme: string;
+    };
+    sections: {
+        [key: string]: {
+            title: string;
+            displayOrder: number;
+            icon: string;
+            content: SectionContent;
+            formatting: {
+                useMarkdown: boolean;
+                [key: string]: unknown;
+            };
+        };
+    };
+    config: {
+        navigation: {
+            style: string;
+            showIcons: boolean;
+            animationSpeed: string;
+        };
+        display: {
+            typingEffect: boolean;
+            typingSpeed: number;
+            showCursor: boolean;
+            terminalPrompt: string;
+        };
+    };
+}
+
+// Define types for section content
+interface SectionContent {
+    header: string;
+    [key: string]: unknown;
+}
+
+// About section content type
+interface AboutContent extends SectionContent {
+    introduction: string;
+    bio: string;
+    highlights: string[];
+    interests?: string[];
+    currentLocation?: string;
+}
+
+// Skills section content type
+interface SkillsContent extends SectionContent {
+    categories: SkillCategory[];
+}
+
+interface SkillCategory {
+    name: string;
+    items: (string | SkillItem)[];
+}
+
+interface SkillItem {
+    name: string;
+    proficiency: string;
+    years: number;
+}
+
+// Projects section content type
+interface ProjectsContent extends SectionContent {
+    projects: Project[];
+}
+
+interface Project {
+    title: string;
+    description: string;
+    technologies: string[];
+    link: string;
+    linkText: string;
+    featured: boolean;
+    year: number;
+}
+
+// Contact section content type
+interface ContactContent extends SectionContent {
+    introduction: string;
+    channels: ContactChannel[];
+    availability?: string;
+}
+
+interface ContactChannel {
+    type: 'email' | 'linkedin' | 'github' | 'gitlab';
+    value: string;
+    link: string;
+    icon: string;
+}
+
 // --- Icon URLs ---
 const ICONS = {
     mail: "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/mail.svg",
@@ -17,33 +112,145 @@ const ICONS = {
     gitlab: "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/gitlab.svg"
 };
 
-// --- Portfolio Data ---
-export const portfolioData: PortfolioData = {
-    "about": {
-        title: "ABOUT_ME.TXT",
-        content: `## ABOUT_ME.TXT\n\nWelcome to my console!\n\nI am a Software Engineer specializing in Machine Learning.\nMy core mission is building intelligent systems from data.\n\n>> Passionate about AI ethics and robust model deployment.\n>> Always learning and exploring new algorithms and techniques.\n>> System time: ${new Date().toLocaleTimeString()}.\n` // Removed location for privacy
-    },
-    "skills": {
-        title: "SKILLS.DAT",
-        content: `## SKILLS.DAT\n\nLanguages:\n> Python\n> JavaScript / TypeScript\n> SQL\n\nFrameworks & Libraries:\n> TensorFlow / Keras\n> PyTorch\n> Scikit-learn\n> Pandas / NumPy\n> React / Next.js\n> Node.js\n\nPlatforms & Tools:\n> AWS (SageMaker, EC2, S3)\n> GCP (AI Platform, Compute)\n> Docker\n> Git\n`
-    },
-    "projects": {
-        title: "PROJECTS.LOG",
-        content: `## PROJECTS.LOG\n\n* **ML Model Deployment API**\n    > Built a scalable REST API...\n    > <a href="#" target="_blank">ACCESS_LOG://PROJECT_ALPHA</a>\n\n* **Interactive Data Viz Dashboard**\n    > Developed a web application...\n    > <a href="#" target="_blank">ACCESS_LOG://PROJECT_BETA</a>\n\n(Replace #)\n`
-    },
-    "contact": {
-        title: "CONTACT.INF",
-        // Inject img tags directly into the content string
-        content: `## CONTACT.INF\n\nLet's connect!\n
-> <a href="mailto:your_email@example.com"><img src="${ICONS.mail}" alt="Email" class="social-icon-img">Email: your_email@example.com</a>
-> <a href="https://linkedin.com/in/your_username" target="_blank"><img src="${ICONS.linkedin}" alt="LinkedIn" class="social-icon-img">LinkedIn: /in/your_username</a>
-> <a href="https://github.com/your_username" target="_blank"><img src="${ICONS.github}" alt="GitHub" class="social-icon-img">GitHub: /your_username</a>
-> <a href="https://gitlab.com/your_username" target="_blank"><img src="${ICONS.gitlab}" alt="GitLab" class="social-icon-img">GitLab: /your_username</a>
+// Import JSON data
+import portfolioJSON from '../data/portfolio.json';
 
-\n(Replace placeholders)\n`
+// Type assertion for imported JSON
+const typedPortfolioJSON = portfolioJSON as unknown as PortfolioJSON;
+
+// Helper function to format about section
+function formatAboutSection(data: AboutContent): string {
+    const { header, introduction, bio, highlights, interests } = data;
+    let content = `## ${header}\n\n${introduction}\n\n${bio}\n\n`;
+    
+    // Add highlights
+    if (highlights && highlights.length > 0) {
+        highlights.forEach((highlight: string) => {
+            content += `>> ${highlight}\n`;
+        });
+    }
+    
+    // Add system time
+    content += `>> System time: ${new Date().toLocaleTimeString()}.\n\n`;
+    
+    // Add interests if present
+    if (interests && interests.length > 0) {
+        content += "Interests: ";
+        content += interests.map((interest: string) => `${interest}`).join(', ');
+    }
+    
+    return content;
+}
+
+// Helper function to format skills section
+function formatSkillsSection(data: SkillsContent): string {
+    const { header, categories } = data;
+    let content = `## ${header}\n\n`;
+    
+    if (categories && categories.length > 0) {
+        categories.forEach((category: SkillCategory) => {
+            content += `${category.name}:\n`;
+            
+            if (Array.isArray(category.items)) {
+                if (typeof category.items[0] === 'string') {
+                    // Simple string array
+                    category.items.forEach((item) => {
+                        if (typeof item === 'string') {
+                            content += `> ${item}\n`;
+                        }
+                    });
+                } else {
+                    // Array of objects with more details
+                    category.items.forEach((item) => {
+                        if (typeof item !== 'string') {
+                            content += `> ${item.name} (${item.proficiency}, ${item.years} years)\n`;
+                        }
+                    });
+                }
+            }
+            content += "\n";
+        });
+    }
+    
+    return content;
+}
+
+// Helper function to format projects section
+function formatProjectsSection(data: ProjectsContent): string {
+    const { header, projects } = data;
+    let content = `## ${header}\n\n`;
+    
+    if (projects && projects.length > 0) {
+        projects.forEach((project: Project) => {
+            content += `* **${project.title}**\n`;
+            content += `    > ${project.description}\n`;
+            if (project.technologies) {
+                content += `    > Technologies: ${project.technologies.join(', ')}\n`;
+            }
+            if (project.link) {
+                content += `    > <a href="${project.link}" target="_blank">${project.linkText}</a>\n`;
+            }
+            content += "\n";
+        });
+    }
+    
+    return content;
+}
+
+// Helper function to format contact section
+function formatContactSection(data: ContactContent): string {
+    const { header, introduction, channels, availability } = data;
+    let content = `## ${header}\n\n${introduction}\n\n`;
+    
+    if (channels && channels.length > 0) {
+        channels.forEach((channel: ContactChannel) => {
+            // Use type assertion to ensure TypeScript knows these are valid keys
+            const iconKey = channel.type as keyof typeof ICONS;
+            const iconSrc = ICONS[iconKey];
+            content += `> <a href="${channel.link}" target="_blank"><img src="${iconSrc}" alt="${channel.type}" class="social-icon-img">${channel.type.charAt(0).toUpperCase() + channel.type.slice(1)}: ${channel.value}</a>\n`;
+        });
+    }
+    
+    if (availability) {
+        content += `\n${availability}\n`;
+    }
+    
+    return content;
+}
+
+// Process and enhance the portfolio data from JSON
+export const portfolioData: PortfolioData = {
+    // About section
+    "about": {
+        title: typedPortfolioJSON.sections.about.title,
+        content: formatAboutSection(typedPortfolioJSON.sections.about.content as AboutContent)
+    },
+    
+    // Skills section
+    "skills": {
+        title: typedPortfolioJSON.sections.skills.title,
+        content: formatSkillsSection(typedPortfolioJSON.sections.skills.content as SkillsContent)
+    },
+    
+    // Projects section
+    "projects": {
+        title: typedPortfolioJSON.sections.projects.title,
+        content: formatProjectsSection(typedPortfolioJSON.sections.projects.content as ProjectsContent)
+    },
+    
+    // Contact section
+    "contact": {
+        title: typedPortfolioJSON.sections.contact.title,
+        content: formatContactSection(typedPortfolioJSON.sections.contact.content as ContactContent)
     }
 };
 
 // Export section keys for navigation mapping if needed elsewhere
 export const sectionKeys = Object.keys(portfolioData);
+
+// Export config settings for use in other components
+export const portfolioConfig = typedPortfolioJSON.config;
+
+// Export metadata for use in other components
+export const portfolioMetadata = typedPortfolioJSON.metadata;
 
