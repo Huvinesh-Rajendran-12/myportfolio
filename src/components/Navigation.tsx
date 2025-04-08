@@ -9,19 +9,56 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ activeSection, onNavigate, sections }) => {
+  // Map section names to their 90s button icons
+  const getButtonIcon = (section: string) => {
+    switch(section) {
+      case 'about': return '📋';
+      case 'skills': return '💾';
+      case 'projects': return '🔬';
+      case 'contact': return '📨';
+      default: return '📎';
+    }
+  };
+  
   return (
-    <nav className="navigation-container">
-      {sections.map((sectionId) => (
-        <button
-          key={sectionId}
-          className={`nav-button ${activeSection === sectionId ? 'active' : ''}`}
-          onClick={() => onNavigate(sectionId)}
-        >
-          {/* Capitalize first letter for display */}
-          {sectionId.charAt(0).toUpperCase() + sectionId.slice(1)}
-        </button>
-      ))}
-    </nav>
+    <div className="retro-navigation">
+      {/* 90s style table layout for navigation */}
+      <table className="nav-table" cellPadding="5" cellSpacing="2" border={1}>
+        <tbody>
+          <tr>
+            {sections.map((sectionId) => (
+              <td 
+                key={sectionId}
+                className={`nav-cell ${activeSection === sectionId ? 'active-cell' : ''}`}
+                onClick={() => onNavigate(sectionId)}
+              >
+                <div className="nav-icon">{getButtonIcon(sectionId)}</div>
+                <div className="nav-text">
+                  {/* Classic 90s text-based navigation with hotkey markers */}
+                  [<span className="hotkey">{sectionId.charAt(0).toUpperCase()}</span>]
+                  {sectionId.slice(1).toUpperCase()}
+                </div>
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
+      
+      {/* Classic 90s rings/bullets navigation */}
+      <div className="text-navigation">
+        {sections.map((sectionId, index) => (
+          <React.Fragment key={sectionId}>
+            <span 
+              className={`text-nav-item ${activeSection === sectionId ? 'active-text-nav' : ''}`}
+              onClick={() => onNavigate(sectionId)}
+            >
+              {sectionId.toUpperCase()}
+            </span>
+            {index < sections.length - 1 && <span className="nav-separator"> :: </span>}
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
   );
 };
 

@@ -10,8 +10,16 @@ interface ContentDisplayProps {
 const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 5 }) => {
   const [displayedContent, setDisplayedContent] = useState('');
   const [showCursor, setShowCursor] = useState(false);
+  const [isNewContent, setIsNewContent] = useState(true);
   const contentRef = useRef<HTMLDivElement>(null); // Ref to scroll parent
   const timeoutRef = useRef<NodeJS.Timeout | null>(null); // Ref for timeout
+  
+  // Last updated date - classic 90s element
+  const lastUpdated = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 
   useEffect(() => {
     // Clear previous animation on content change
@@ -74,12 +82,39 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 5 }) =
     };
   }, [content, speed]); // Rerun effect when content or speed changes
 
+  // Use isNewContent to show loading message
+  useEffect(() => {
+    setIsNewContent(true);
+    const timer = setTimeout(() => {
+      setIsNewContent(false);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [content]);
+  
   return (
-    <div ref={contentRef} className="content-area">
-      {/* Render HTML content safely */}
+    <div ref={contentRef} className="content-area retro-content">
+      {/* Classic 90s marquee and divider */}
+      <div className="retro-header">
+        <div className="retro-marquee">
+          ★ WELCOME TO MY WEB ZONE ★ BEST VIEWED WITH NETSCAPE NAVIGATOR 3.0 ★
+        </div>
+        <div className="retro-divider">===================================</div>
+      </div>
+      
+      {/* Loading message - classic 90s element */}
+      {isNewContent && (
+        <div className="loading-message">Loading... please wait...</div>
+      )}
+      
+      {/* Main content area with typewriter effect */}
       <div dangerouslySetInnerHTML={{ __html: displayedContent }} />
-      {/* Render cursor */}
       {showCursor && <span className="cursor"></span>}
+      
+      {/* Classic 90s footer with counter and last updated */}
+      <div className="retro-footer">
+        <div className="construction-bar">==== UNDER CONSTRUCTION ====</div>
+        <div className="last-updated">Page Last Updated: {lastUpdated}</div>
+      </div>
     </div>
   );
 };
