@@ -94,12 +94,12 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 5 }) =
   return (
     <div ref={contentRef} className="content-area retro-content">
       {/* Classic 90s marquee and divider */}
-      <div className="retro-header">
+      {/* <div className="retro-header">
         <div className="retro-marquee">
           ★ WELCOME TO MY WEB ZONE ★ BEST VIEWED WITH NETSCAPE NAVIGATOR 3.0 ★
         </div>
         <div className="retro-divider">===================================</div>
-      </div>
+      </div> */}
       
       {/* Loading message - classic 90s element */}
       {isNewContent && (
@@ -112,7 +112,6 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 5 }) =
       
       {/* Classic 90s footer with counter and last updated */}
       <div className="retro-footer">
-        <div className="construction-bar">==== UNDER CONSTRUCTION ====</div>
         <div className="last-updated">Page Last Updated: {lastUpdated}</div>
       </div>
     </div>

@@ -2,6 +2,7 @@
 
 /* --- Soothing Retro Theme CSS Variables --- */
 :root {
+    /* Color variables */
     --bg-gradient: linear-gradient(to bottom, #2c3e50, #4a6670, #6b8e9a); /* Midnight Blue -> Steel Blue */
     --monitor-bg: #34495e; /* Dark slate */
     --monitor-border: #2c3e50;
@@ -19,6 +20,11 @@
     --nav-text: #7fdbca; /* Soft teal */
     --nav-hover-bg: #3d556c;
     --nav-hover-text: #a3c8c4; /* Dusty teal */
+    
+    /* Font variables */
+    --font-pixel-primary: var(--font-vt323), 'VT323', 'Courier New', monospace;
+    --font-pixel-secondary: var(--font-press-start-2p), 'Press Start 2P', monospace;
+    --font-mono: 'Courier New', monospace;
     --nav-active-bg: #b0c4de; /* Light steel blue */
     --nav-active-text: #0a1922; /* Deep navy */
     --robot-body: #465a65; /* Slate gray */
@@ -393,18 +399,39 @@ body::after {
     word-wrap: break-word;
     min-height: 50px;
 }
-.content-area h2 { color: var(--header-color); margin-bottom: 1em; font-size: 1.2em; text-shadow: 0 0 8px var(--header-glow); }
+.content-area h2 { 
+    color: var(--header-color); 
+    margin-bottom: 1em; 
+    font-size: 1.4em; 
+    text-shadow: 0 0 8px var(--header-glow);
+    font-family: var(--font-pixel-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 .content-area ul { list-style: none; padding-left: 0; margin-top: 0.5em; margin-bottom: 0.5em; }
-.content-area li { margin-bottom: 0.5em; }
+.content-area li { 
+    margin-bottom: 0.8em; 
+    font-size: 0.9rem;
+}
 .content-area li::before { content: "> "; color: var(--list-marker-color); }
-.content-area a { color: var(--link-color); text-decoration: underline; }
+.content-area a { 
+    color: var(--link-color); 
+    text-decoration: underline; 
+    font-weight: bold;
+    text-shadow: 0 0 3px var(--link-color);
+}
 .content-area a:hover { color: var(--link-hover-color); }
 
 /* Retro Content Area Styling */
 .retro-content {
-    font-family: "Courier New", monospace;
+    font-family: var(--font-pixel-primary);
     width: 100%;
     position: relative;
+    font-size: 0.9rem;
+    image-rendering: pixelated;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.5px;
 }
 
 /* Retro Header with Marquee */
@@ -489,7 +516,17 @@ body::after {
  }
 
 /* Blinking Cursor */
-.cursor { display: inline-block; width: 8px; height: 1.2em; background-color: var(--cursor-color); margin-left: 2px; vertical-align: middle; animation: blink 1s step-end infinite; box-shadow: 0 0 5px var(--text-glow); }
+.cursor { 
+    display: inline-block; 
+    width: 12px; 
+    height: 1.4em; 
+    background-color: var(--cursor-color); 
+    margin-left: 4px; 
+    vertical-align: middle; 
+    animation: blink 1s step-end infinite; 
+    box-shadow: 0 0 8px var(--text-glow);
+    image-rendering: pixelated;
+}
 @keyframes blink { 50% { opacity: 0; } }
 
 /* Retro Navigation Styling */
