@@ -1,26 +1,178 @@
 @import "tailwindcss";
 
+/* --- Purple Sunset Synthwave Theme CSS Variables --- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --bg-gradient: linear-gradient(to bottom, #480a6e, #a12a8a, #ff8c00); /* Purple -> Pink -> Orange */
+    --monitor-bg: #2a2a3a; /* Dark desaturated purple */
+    --monitor-border: #1a1a2a;
+    --screen-bg: #100515; /* Very dark purple */
+    --screen-border: #440044;
+    --text-color: #00ffff; /* Neon Cyan */
+    --text-glow: rgba(0, 255, 255, 0.5);
+    --header-color: #ff00ff; /* Neon Pink */
+    --header-glow: rgba(255, 0, 255, 0.6);
+    --link-color: #ffff00; /* Neon Yellow */
+    --link-hover-color: #fff;
+    --list-marker-color: #ff80ff; /* Light Pink */
+    --nav-bg: #331144;
+    --nav-border: #552266;
+    --nav-text: #ff00ff; /* Pink */
+    --nav-hover-bg: #552266;
+    --nav-hover-text: #ff80ff; /* Lighter Pink */
+    --nav-active-bg: #00ffff; /* Cyan */
+    --nav-active-text: #100515; /* Dark */
+    --robot-body: #444; /* Dark Gray */
+    --robot-border: #222;
+    --robot-joint: #ff00ff; /* Pink joints */
+    --robot-accent: #ffff00; /* Yellow accents */
+    --robot-eye: #00ffff; /* Cyan eye */
+    --robot-eye-border: #00aaaa;
+    --cursor-color: var(--text-color);
+    --scrollbar-track: #440044;
+    --scrollbar-thumb: var(--header-color);
+    --font-press-start-2p: 'Press Start 2P', cursive; /* Define font variable */
+    --font-inter: 'Inter', sans-serif; /* Define font variable */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base Body Styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-press-start-2p); /* Use variable */
+    background: var(--bg-gradient);
+    color: var(--text-color);
+    display: flex; /* Use flex for centering */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    font-size: 10px;
+    line-height: 1.8;
 }
+
+/* CRT Monitor Container */
+.crt-monitor {
+    width: 90vw;
+    max-width: 850px;
+    height: 85vh;
+    max-height: 650px;
+    background-color: var(--monitor-bg);
+    border: 4px solid var(--monitor-border);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.3), /* Pink outer glow */
+                inset 0 0 20px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative; /* Needed for absolute positioned robot */
+}
+
+/* Screen Area */
+.screen {
+    flex-grow: 1;
+    background-color: var(--screen-bg);
+    border: 3px solid var(--screen-border);
+    padding: 20px;
+    overflow-y: auto;
+    position: relative;
+    color: var(--text-color);
+    box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.2); /* Inner cyan glow */
+    border-radius: 8px;
+    text-shadow: 0 0 5px var(--text-glow); /* Text glow */
+}
+.screen::before { /* Scanlines */
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-image: linear-gradient(rgba(0,0,0,0.2) 1px, transparent 1px);
+    background-size: 100% 3px; pointer-events: none; z-index: 2; opacity: 0.4; border-radius: inherit;
+}
+.screen::after { /* Vignette */
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: inherit; box-shadow: inset 0 0 30px 10px rgba(0, 0, 0, 0.5);
+    pointer-events: none; z-index: 3;
+}
+
+/* Content Area inside Screen */
+.content-area { /* Changed ID to class */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    min-height: 50px;
+}
+.content-area h2 { color: var(--header-color); margin-bottom: 1em; font-size: 1.2em; text-shadow: 0 0 8px var(--header-glow); }
+.content-area ul { list-style: none; padding-left: 0; margin-top: 0.5em; margin-bottom: 0.5em; }
+.content-area li { margin-bottom: 0.5em; }
+.content-area li::before { content: "> "; color: var(--list-marker-color); }
+.content-area a { color: var(--link-color); text-decoration: underline; }
+.content-area a:hover { color: var(--link-hover-color); }
+
+/* Inline Social Icons (within content) */
+.social-icon-img {
+     width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 6px;
+     filter: brightness(0) saturate(100%) invert(91%) sepia(99%) saturate(6771%) hue-rotate(301deg) brightness(104%) contrast(103%); /* Approx Neon Yellow var(--link-color) */
+     transition: filter 0.2s ease-in-out;
+}
+.content-area a:hover .social-icon-img {
+     filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(103deg) brightness(103%) contrast(103%); /* Approx White var(--link-hover-color) */
+ }
+
+/* Blinking Cursor */
+.cursor { display: inline-block; width: 8px; height: 1.2em; background-color: var(--cursor-color); margin-left: 2px; vertical-align: middle; animation: blink 1s step-end infinite; box-shadow: 0 0 5px var(--text-glow); }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Navigation Container */
+.navigation-container { /* Changed from nav tag */
+    display: flex;
+    margin-top: 15px;
+    border-top: 2px solid var(--nav-border);
+    padding-top: 10px;
+}
+
+/* Navigation Buttons */
+.nav-button {
+    font-family: var(--font-press-start-2p); /* Use variable */
+    font-size: 0.9em; color: var(--nav-text); background-color: var(--nav-bg);
+    border: 1px solid var(--nav-border); padding: 5px 10px; margin-right: 8px; cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s, transform 0.1s;
+    box-shadow: 2px 2px 0px var(--nav-border), 0 0 8px rgba(255, 0, 255, 0.4);
+    text-transform: uppercase;
+}
+.nav-button:hover { background-color: var(--nav-hover-bg); color: var(--nav-hover-text); box-shadow: 2px 2px 0px #774488, 0 0 12px rgba(255, 128, 255, 0.6); }
+.nav-button.active { background-color: var(--nav-active-bg); color: var(--nav-active-text); box-shadow: inset 1px 1px 0px #00aaaa, inset -1px -1px 0px #00aaaa, 0 0 10px rgba(0, 255, 255, 0.6); }
+.nav-button:active { box-shadow: inset 1px 1px 0px #00aaaa, inset -1px -1px 0px #00aaaa; transform: translate(1px, 1px); }
+
+/* --- CSS Pixel Robot --- */
+.robot-container { /* Changed ID to class */
+    position: absolute;
+    bottom: 40px;
+    right: 30px;
+    width: 60px;
+    height: 90px;
+    transition: transform 0.3s ease-out;
+}
+.robot-part { position: absolute; background-color: var(--robot-body); border: 1px solid var(--robot-border); transition: transform 0.3s ease-out, background-color 0.3s ease; }
+.robot-head { width: 36px; height: 30px; top: 0; left: 12px; border-radius: 4px 4px 0 0; }
+.robot-eye { width: 8px; height: 8px; background-color: var(--robot-eye); border: 1px solid var(--robot-eye-border); top: 10px; left: 14px; animation: robot-blink 4s infinite step-end; box-shadow: 0 0 8px var(--robot-eye); }
+.robot-antenna-base { width: 4px; height: 10px; top: -10px; left: 16px; background-color: var(--robot-joint); }
+.robot-antenna-tip { width: 8px; height: 8px; background-color: var(--robot-accent); border-radius: 50%; top: -18px; left: 14px; box-shadow: 0 0 5px var(--robot-accent); }
+.robot-torso { width: 60px; height: 45px; top: 30px; left: 0; border-radius: 4px; }
+.robot-chest-light { width: 12px; height: 12px; background-color: var(--robot-joint); border-radius: 50%; top: 16px; left: 24px; animation: robot-pulse 2s infinite ease-in-out; }
+.robot-leg-left, .robot-leg-right { width: 18px; height: 25px; top: 75px; border-radius: 0 0 3px 3px; background-color: var(--robot-body); }
+.robot-leg-left { left: 6px; }
+.robot-leg-right { left: 36px; }
+.robot-arm-right { display: none; width: 10px; height: 30px; background-color: var(--robot-body); border: 1px solid var(--robot-border); top: 35px; left: 60px; transform-origin: top center; border-radius: 3px; }
+
+/* Robot Animations / Poses */
+@keyframes robot-blink { 0%, 90%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+@keyframes robot-pulse { 0%, 100% { box-shadow: 0 0 4px var(--robot-joint); } 50% { box-shadow: 0 0 10px var(--robot-joint); opacity: 0.7;} }
+.robot-container.pose-idle { transform: translateY(0); }
+.robot-container.pose-think .robot-head { transform: rotate(-12deg) translate(-4px, 2px); }
+.robot-container.pose-think .robot-eye { background-color: var(--robot-accent); box-shadow: 0 0 8px var(--robot-accent); }
+.robot-container.pose-present .robot-head { transform: rotate(8deg) translateX(2px); }
+.robot-container.pose-present .robot-arm-right { display: block; transform: rotate(-45deg); background-color: var(--robot-joint); }
+.robot-container.pose-wave .robot-arm-right { display: block; animation: robot-wave 0.8s ease-in-out; background-color: var(--robot-joint); }
+@keyframes robot-wave { 0% { transform: rotate(-30deg); } 50% { transform: rotate(-60deg); } 100% { transform: rotate(-30deg); } }
+
+/* Scrollbar */
+.screen::-webkit-scrollbar { width: 8px; }
+.screen::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+.screen::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb); border: 1px solid #1a1a1a; box-shadow: 0 0 5px var(--scrollbar-thumb); }
+.screen::-webkit-scrollbar-thumb:hover { filter: brightness(1.2); }
+
