@@ -19,8 +19,7 @@
           "Always learning and exploring new algorithms, techniques and languages.",
           "Focused on creating scalable, production-ready ML systems.",
           "Experienced in integrating Generative AI models (LLMs) to solve existing business problems.",
-          "Building effective AI agents through RAG.",
-          "Dean's List (3.67/4.00) in Bachelor of Computer Science with Data Science major."
+          "Building effective AI agents with LLMs and Retrieval Augmented Generation (RAG)."
         ],
         "currentLocation": "Kuala Lumpur, Malaysia",
         "phone": "+60122446529",
@@ -84,6 +83,11 @@
                 "name": "Haskell",
                 "proficiency": "Intermediate",
                 "years": 1
+              },
+              {
+                "name": "C",
+                "proficiency": "Intermediate",
+                "years": 1
               }
             ]
           },
@@ -138,7 +142,8 @@
             "link": "#",
             "linkText": "ACCESS_LOG://PROJECT_HEALTHCARE_CHATBOT",
             "featured": true,
-            "year": 2023
+            "year": 2023,
+            "isPrivate": true
           },
           {
             "title": "Content-Based Health Product Recommendation System",
@@ -147,7 +152,8 @@
             "link": "#",
             "linkText": "ACCESS_LOG://PROJECT_HEALTH_RECOMMENDER",
             "featured": true,
-            "year": 2023
+            "year": 2023,
+            "isPrivate": true
           },
           {
             "title": "Graph Neural Networks for Molecule Properties Prediction",
@@ -156,7 +162,8 @@
             "link": "#",
             "linkText": "ACCESS_LOG://PROJECT_GNN_MOLECULES",
             "featured": true,
-            "year": 2023
+            "year": 2023,
+            "isPrivate": true
           },
           {
             "title": "Customer Service Agent",
@@ -165,7 +172,8 @@
             "link": "#",
             "linkText": "ACCESS_LOG://PROJECT_CUSTOMER_SERVICE_AGENT",
             "featured": true,
-            "year": 2023
+            "year": 2023,
+            "isPrivate": true
           },
           {
             "title": "Capstone Project Recommender System (CPRS)",

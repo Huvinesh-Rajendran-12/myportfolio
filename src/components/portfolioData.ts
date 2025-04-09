@@ -95,6 +95,7 @@ interface Project {
     linkText: string;
     featured: boolean;
     year: number;
+    isPrivate?: boolean; // Flag to indicate if this is a private work project
 }
 
 // Contact section content type
@@ -212,13 +213,22 @@ function formatProjectsSection(data: ProjectsContent): string {
     
     if (projects && projects.length > 0) {
         projects.forEach((project: Project) => {
-            content += `* **${project.title}**\n`;
+            // Add a private project indicator if applicable
+            const privateTag = project.isPrivate ? ' <span class="private-project">[PRIVATE WORK]</span>' : '';
+            
+            content += `* **${project.title}${privateTag}**\n`;
             content += `    > ${project.description}\n`;
             if (project.technologies) {
                 content += `    > Technologies: ${project.technologies.join(', ')}\n`;
             }
+            
+            // Handle links differently for private projects
             if (project.link) {
-                content += `    > <a href="${project.link}" target="_blank">${project.linkText}</a>\n`;
+                if (project.isPrivate) {
+                    content += `    > <span class="private-link">${project.linkText} (Private work project)</span>\n`;
+                } else {
+                    content += `    > <a href="${project.link}" target="_blank">${project.linkText}</a>\n`;
+                }
             }
             content += "\n";
         });
