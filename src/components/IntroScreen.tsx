@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from './IntroScreen.module.css';
+import { soundEffects } from '@/utils/SoundEffects';
 
 interface IntroScreenProps {
   onComplete: () => void;
@@ -12,6 +13,31 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ onComplete }) => {
   const fullText = "The Computer of Huvinesh Rajendran";
   const [showEnterPrompt, setShowEnterPrompt] = useState(false);
   
+  // Set up continuous typing sound effect
+  useEffect(() => {
+    let typingSoundInterval: NodeJS.Timeout | null = null;
+    
+    // Start typing sound if text is still being typed
+    if (text.length < fullText.length) {
+      // Play initial sound
+      soundEffects.play('keypress', 0.15);
+      
+      // Set up interval for continuous typing sound
+      typingSoundInterval = setInterval(() => {
+        if (text.length < fullText.length) {
+          soundEffects.play('keypress', 0.15);
+        }
+      }, 150); // Slightly faster than typing speed for a continuous effect
+    }
+    
+    // Clean up interval when component unmounts or text is fully typed
+    return () => {
+      if (typingSoundInterval) {
+        clearInterval(typingSoundInterval);
+      }
+    };
+  }, [text.length, fullText.length]);
+
   // Type out the text one character at a time
   useEffect(() => {
     if (text.length < fullText.length) {
@@ -23,6 +49,8 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ onComplete }) => {
       // Show the "Press ENTER" prompt after the text is fully typed
       const timer = setTimeout(() => {
         setShowEnterPrompt(true);
+        // Play a sound when the prompt appears
+        soundEffects.play('enter', 0.4);
       }, 800);
       return () => clearTimeout(timer);
     }
@@ -32,6 +60,7 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ onComplete }) => {
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === 'Enter' && showEnterPrompt) {
+        soundEffects.play('startup', 0.5);
         onComplete();
       }
     };
@@ -41,12 +70,17 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ onComplete }) => {
   }, [showEnterPrompt, onComplete]);
 
   return (
-    <div className={styles.introScreen}>
+    <div className={styles.introScreen} onClick={() => {
+      if (showEnterPrompt) {
+        soundEffects.play('startup', 0.5);
+        onComplete();
+      }
+    }}>
       <div className={styles.introContent}>
         <div className={styles.introText}>{text}<span className={styles.cursorBlink}>|</span></div>
         {showEnterPrompt && (
           <div className={styles.enterPrompt}>
-            Press <kbd>ENTER</kbd> to continue
+            Press <kbd>ENTER</kbd> or <kbd>TAP SCREEN</kbd> to continue
           </div>
         )}
       </div>

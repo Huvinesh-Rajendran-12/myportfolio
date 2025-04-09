@@ -1,0 +1,60 @@
+.soundToggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 10px var(--text-glow);
+  transition: all 0.3s ease;
+}
+
+.soundToggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px var(--text-glow);
+}
+
+.soundIcon {
+  font-size: 18px;
+  color: var(--text-color);
+  text-shadow: 0 0 5px var(--text-glow);
+}
+
+.soundOn {
+  animation: pulse 2s infinite;
+}
+
+.soundOff {
+  opacity: 0.7;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+/* Retro CRT effect when clicked */
+.soundToggle:active {
+  background-color: rgba(127, 219, 202, 0.3);
+}
+
+/* Media query for mobile */
+@media (max-width: 768px) {
+  .soundToggle {
+    bottom: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+  }
+  
+  .soundIcon {
+    font-size: 16px;
+  }
+}

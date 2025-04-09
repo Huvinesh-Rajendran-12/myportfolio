@@ -81,12 +81,7 @@
                 "years": 2
               },
               {
-                "name": "C",
-                "proficiency": "Intermediate",
-                "years": 2
-              },
-              {
-                "name": "Julia",
+                "name": "Haskell",
                 "proficiency": "Intermediate",
                 "years": 1
               }
@@ -199,7 +194,7 @@
     },
     "contact": {
       "title": "CONTACT.INF",
-      "displayOrder": 4,
+      "displayOrder": 6,
       "icon": "mail",
       "content": {
         "header": "CONTACT.INF",

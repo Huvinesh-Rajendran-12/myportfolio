@@ -5,7 +5,9 @@ import PixelRobot from '@/components/PixelRobot';
 import ContentDisplay from '@/components/ContentDisplay';
 import Navigation from '@/components/Navigation';
 import IntroScreen from '@/components/IntroScreen';
+import SoundToggle from '@/components/SoundToggle';
 import { portfolioData, sectionKeys } from '@/components/portfolioData'; // Import data and keys
+import { soundEffects } from '@/utils/SoundEffects'; // Import sound effects
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState<boolean>(true);
@@ -13,18 +15,34 @@ export default function Home() {
   // State for showing/hiding keyboard shortcut help
   const [showKeyboardHelp, setShowKeyboardHelp] = useState<boolean>(false);
   
+  // Preload all sounds when the component mounts
+  useEffect(() => {
+    // Small delay to ensure the component is fully mounted
+    const timer = setTimeout(() => {
+      soundEffects.preloadAllSounds();
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+  
   // Function to handle completion of intro screen
   const handleIntroComplete = () => {
     setShowIntro(false);
+    // Play startup sound when entering the main interface
+    soundEffects.play('startup', 0.4);
   };
 
   const handleNavigate = (sectionId: string) => {
     setActiveSection(sectionId);
+    // Play navigation sound when changing sections
+    soundEffects.play('click', 0.3);
   };
   
   // Toggle keyboard help panel
   const toggleKeyboardHelp = () => {
     setShowKeyboardHelp(prev => !prev);
+    // Play sound when toggling help panel
+    soundEffects.play('click', 0.3);
   };
 
   // Get current section data based on activeSection
@@ -111,6 +129,9 @@ export default function Home() {
           {/* Circuit glow effect for background */}
           <div className="circuit-glow"></div>
           <div className="vintage-monitor-container">
+            {/* Sound toggle button */}
+            <SoundToggle />
+            
             {/* Monitor bezel with old-school design */}
             <div className="monitor-bezel">
               {/* Monitor brand label */}

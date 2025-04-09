@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { soundEffects } from '@/utils/SoundEffects';
 
 interface NavigationProps {
   activeSection: string;
@@ -32,7 +33,10 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection, onNavigate, sect
               <td 
                 key={sectionId}
                 className={`nav-cell ${activeSection === sectionId ? 'active-cell' : ''}`}
-                onClick={() => onNavigate(sectionId)}
+                onClick={() => {
+                  soundEffects.play('navigate');
+                  onNavigate(sectionId);
+                }}
               >
                 <div className="nav-icon">{getButtonIcon(sectionId)}</div>
                 <div className="nav-text">
@@ -47,7 +51,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection, onNavigate, sect
       </table>
       
       {/* Classic 90s rings/bullets navigation */}
-      <div className="text-navigation">
+      {/* <div className="text-navigation">
         {sections.map((sectionId, index) => (
           <React.Fragment key={sectionId}>
             <span 
@@ -59,7 +63,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection, onNavigate, sect
             {index < sections.length - 1 && <span className="nav-separator"> :: </span>}
           </React.Fragment>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

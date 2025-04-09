@@ -14,6 +14,8 @@
     text-shadow: 0 0 8px var(--text-glow);
     font-family: var(--font-pixel-primary);
     image-rendering: pixelated;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .introContent {
@@ -58,11 +60,15 @@
     image-rendering: pixelated;
     -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: grayscale;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px dashed rgba(127, 219, 202, 0.3);
+    border-radius: 5px;
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
 }
 
 .enterPrompt kbd {
@@ -71,4 +77,28 @@
     border-radius: 3px;
     padding: 2px 5px;
     margin: 0 3px;
+    display: inline-block;
+}
+
+/* Media queries for mobile devices */
+@media (max-width: 768px) {
+    .introText {
+        font-size: 1.2rem;
+    }
+    
+    .enterPrompt {
+        font-size: 0.7rem;
+        padding: 8px;
+    }
+}
+
+/* Touch indicator animation */
+@keyframes touchRipple {
+    0% { box-shadow: 0 0 0 0 rgba(127, 219, 202, 0.4); }
+    100% { box-shadow: 0 0 0 20px rgba(127, 219, 202, 0); }
+}
+
+.introScreen:active {
+    animation: touchRipple 0.8s ease-out;
+    background-color: rgba(127, 219, 202, 0.05);
 }
