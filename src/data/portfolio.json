@@ -13,20 +13,26 @@
       "content": {
         "header": "ABOUT_ME.TXT",
         "introduction": "Welcome to my computer!",
-        "bio": "I am a Software Engineer specializing in Machine Learning.\nMy core mission is building intelligent systems from data.",
+        "bio": "Experienced Software Engineer with nearly 2 years of dedicated focus on researching, developing, and implementing cutting-edge AI applications and robust backend systems. Proficient in leveraging advanced technologies to drive innovation and deliver high-quality solutions.",
         "highlights": [
-          "Passionate about building Intelligent Systems that make the GPUs go Brrrr...",
-          "Always learning and exploring new algorithms, techniques and languages",
+          "Passionate about building Intelligent Systems which will transform the world.",
+          "Always learning and exploring new algorithms, techniques and languages.",
           "Focused on creating scalable, production-ready ML systems.",
-          "A self-proclaimed Math nerd",
-          ""
+          "Experienced in integrating Generative AI models (LLMs) to solve existing business problems.",
+          "Building effective AI agents through RAG.",
+          "Dean's List (3.67/4.00) in Bachelor of Computer Science with Data Science major."
         ],
         "currentLocation": "Kuala Lumpur, Malaysia",
+        "phone": "+60122446529",
         "interests": [
           "Deep Learning",
           "Computer Vision",
           "Natural Language Processing",
-          "Reinforcement Learning"
+          "Reinforcement Learning",
+          "Mathematics",
+          "Program Synthesis",
+          "Physics",
+          "Philosophy"
         ]
       },
       "formatting": {
@@ -50,6 +56,11 @@
                 "years": 5
               },
               {
+                "name": "Julia",
+                "proficiency": "Advanced",
+                "years": 3
+              },
+              {
                 "name": "TypeScript",
                 "proficiency": "Advanced",
                 "years": 4
@@ -58,6 +69,11 @@
                 "name": "SQL",
                 "proficiency": "Advanced",
                 "years": 4
+              },
+              {
+                "name": "Go",
+                "proficiency": "Intermediate",
+                "years": 2
               },
               {
                 "name": "Ruby",
@@ -81,6 +97,7 @@
               "Pandas / NumPy / Polars",
               "React / Next.js",
               "Node.js",
+              "Ruby on Rails",
               "FastAPI",
               "Django"
             ]
@@ -94,6 +111,9 @@
               "Kubernetes",
               "Git",
               "CI/CD Pipelines",
+              "Neo4j",
+              "Qdrant",
+              "PostgreSQL",
               "MLflow"
             ]
           }
@@ -112,29 +132,38 @@
         "header": "PROJECTS.LOG",
         "projects": [
           {
-            "title": "Protein Structure Prediction Model",
-            "description": "Built a scalable REST API for protein structure prediction with automatic scaling and monitoring.",
-            "technologies": ["Python", "PyTorch", "Docker", "Kubernetes", "TensorFlow Serving"],
+            "title": "AI Healthcare Chatbot",
+            "description": "Developed and deployed an AI healthcare chatbot leveraging cutting-edge RAG (Retrieval-Augmented Generation) technique for enhanced conversational capabilities. Utilized Qdrant database for efficient storage and retrieval of proprietary document data.",
+            "technologies": ["Python", "RAG", "LLM", "Qdrant", "NLP"],
             "link": "#",
-            "linkText": "ACCESS_LOG://PROJECT_PROTEINS",
-            "featured": true,
-            "year": 2024
-          },
-          {
-            "title": "Data Visualization Dashboard",
-            "description": "Developed a web application for visualizing complex datasets with interactive filtering and exploration capabilities.",
-            "technologies": ["React", "D3.js", "TypeScript", "Node.js", "Express"],
-            "link": "#",
-            "linkText": "ACCESS_LOG://PROJECT_BETA",
+            "linkText": "ACCESS_LOG://PROJECT_HEALTHCARE_CHATBOT",
             "featured": true,
             "year": 2023
           },
           {
-            "title": "Predictive Maintenance System",
-            "description": "Created an IoT-based system that predicts equipment failures before they occur using sensor data and machine learning.",
-            "technologies": ["Python", "PyTorch", "Time Series Analysis", "MQTT", "AWS IoT"],
+            "title": "Content-Based Health Product Recommendation System",
+            "description": "Designed and implemented a sophisticated Content-Based Recommendation System tailored for health products, leveraging user's recent medical history for personalized recommendations. Utilized Neo4j graph database with advanced vector similarity search.",
+            "technologies": ["Python", "Neo4j", "Vector Search", "Recommendation Systems"],
             "link": "#",
-            "linkText": "ACCESS_LOG://PROJECT_GAMMA",
+            "linkText": "ACCESS_LOG://PROJECT_HEALTH_RECOMMENDER",
+            "featured": true,
+            "year": 2023
+          },
+          {
+            "title": "Capstone Project Recommender System (CPRS)",
+            "description": "Developed a personalized content-based recommender system, aligning students with suitable projects based on their skills and interests. Implemented TF-IDF technique to construct the recommendation engine.",
+            "technologies": ["Python", "Keras", "Django", "HTML", "PostgreSQL", "TF-IDF"],
+            "link": "#",
+            "linkText": "ACCESS_LOG://PROJECT_CPRS",
+            "featured": true,
+            "year": 2022
+          },
+          {
+            "title": "Multi-Lingual BPE Tokenizer",
+            "description": "Created a Multi-Lingual BPE Tokenizer using Byte-Pair Encoding inspired by GPT4, implemented in Julia. The tokenizer encodes characters into unicode representations and optimizes vocabulary by grouping frequently used byte pairs.",
+            "technologies": ["Julia", "BPE", "NLP", "Tokenization"],
+            "link": "#",
+            "linkText": "ACCESS_LOG://PROJECT_BPE_TOKENIZER",
             "featured": false,
             "year": 2022
           }
@@ -167,18 +196,18 @@
           },
           {
             "type": "github",
-            "value": "/huvinesh",
+            "value": "/Huvinesh-Rajendran-12",
             "link": "https://github.com/Huvinesh-Rajendran-12",
             "icon": "github"
           },
           {
             "type": "gitlab",
-            "value": "/huvinesh",
+            "value": "/huvinesh-Rajendran-12",
             "link": "https://gitlab.com/Huvinesh-Rajendran-12",
             "icon": "gitlab"
           }
         ],
-        "availability": "Open to opportunities"
+        "availability": "Open to new and exciting opportunities"
       },
       "formatting": {
         "useMarkdown": true,
@@ -198,5 +227,51 @@
       "showCursor": true,
       "terminalPrompt": "user@synthwave:~$ "
     }
+  },
+  "experience": {
+    "jobs": [
+      {
+        "company": "Teleme Technologies Sdn Bhd",
+        "position": "Software Engineer",
+        "period": "Sept 2022 - Present",
+        "achievements": [
+          "Developed and deployed an AI healthcare chatbot leveraging cutting-edge RAG (Retrieval-Augmented Generation) technique for enhanced conversational capabilities.",
+          "Utilized Qdrant database for efficient storage and retrieval of proprietary document data, ensuring secure and scalable data management.",
+          "Employed open-source LLM (Large Language Model) models to generate accurate answers from retrieved documents, enhancing the chatbot's responsiveness and effectiveness.",
+          "Significantly contributed to reducing customer service overhead by providing timely and accurate responses, improving customer satisfaction and operational efficiency.",
+          "Designed and implemented a sophisticated Content-Based Recommendation System tailored for health products, leveraging user's recent medical history for personalized recommendations.",
+          "Utilized Neo4j graph database with advanced vector similarity search capabilities to efficiently search and retrieve relevant products based on user profiles and preferences.",
+          "Implemented advanced filtering mechanisms to refine product recommendations based on specific criteria such as allergens, gender suitability, and other relevant factors.",
+          "Enhanced user experience by delivering accurate and personalized product recommendations aligned with individual health needs and preferences, promoting user engagement and satisfaction."
+        ]
+      }
+    ]
+  },
+  "education": {
+    "degrees": [
+      {
+        "degree": "Bachelor of Computer Science (Hons)",
+        "major": "Data Science",
+        "institution": "Taylor's University",
+        "achievements": ["Dean's List (3.67/4.00)"]
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Structuring Machine Learning Projects",
+        "issuer": "DeepLearning.AI",
+        "platform": "Coursera"
+      },
+      {
+        "name": "Neural Networks and Deep Learning",
+        "issuer": "DeepLearning.AI",
+        "platform": "Coursera"
+      },
+      {
+        "name": "Improving Deep Neural Networks: Hyperparameter Tuning, Regularization, and Optimization",
+        "issuer": "DeepLearning.AI",
+        "platform": "Coursera"
+      }
+    ]
   }
 }

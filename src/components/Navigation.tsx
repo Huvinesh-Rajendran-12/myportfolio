@@ -16,6 +16,8 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection, onNavigate, sect
       case 'skills': return '💾';
       case 'projects': return '🔬';
       case 'contact': return '📨';
+      case 'experience': return '💼';
+      case 'education': return '🎓';
       default: return '📎';
     }
   };

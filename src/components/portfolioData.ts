@@ -42,6 +42,13 @@ interface PortfolioJSON {
             terminalPrompt: string;
         };
     };
+    experience?: {
+        jobs: Job[];
+    };
+    education?: {
+        degrees: Degree[];
+        certifications: Certification[];
+    };
 }
 
 // Define types for section content
@@ -98,10 +105,32 @@ interface ContactContent extends SectionContent {
 }
 
 interface ContactChannel {
-    type: 'email' | 'linkedin' | 'github' | 'gitlab';
+    type: 'email' | 'linkedin' | 'github' | 'gitlab' | 'phone' | 'substack';
     value: string;
     link: string;
     icon: string;
+}
+
+// Experience section types
+interface Job {
+    company: string;
+    position: string;
+    period: string;
+    achievements: string[];
+}
+
+// Education section types
+interface Degree {
+    degree: string;
+    major: string;
+    institution: string;
+    achievements: string[];
+}
+
+interface Certification {
+    name: string;
+    issuer: string;
+    platform: string;
 }
 
 // --- Icon URLs ---
@@ -109,7 +138,11 @@ const ICONS = {
     mail: "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/mail.svg",
     linkedin: "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/linkedin.svg",
     github: "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/github.svg",
-    gitlab: "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/gitlab.svg"
+    gitlab: "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/gitlab.svg",
+    phone: "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/phone.svg",
+    'file-text': "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/file-text.svg",
+    briefcase: "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/briefcase.svg",
+    graduation: "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/graduation-cap.svg"
 };
 
 // Import JSON data
@@ -218,6 +251,60 @@ function formatContactSection(data: ContactContent): string {
     return content;
 }
 
+// Helper function to format experience section
+function formatExperienceSection(jobs: Job[]): string {
+    let content = `## WORK_EXPERIENCE.LOG\n\n`;
+    
+    if (jobs && jobs.length > 0) {
+        jobs.forEach((job: Job) => {
+            content += `* **${job.position} @ ${job.company}**\n`;
+            content += `    > ${job.period}\n\n`;
+            
+            if (job.achievements && job.achievements.length > 0) {
+                content += `    > Key Achievements:\n`;
+                job.achievements.forEach((achievement: string) => {
+                    content += `    > - ${achievement}\n`;
+                });
+            }
+            content += "\n";
+        });
+    }
+    
+    return content;
+}
+
+// Helper function to format education section
+function formatEducationSection(degrees: Degree[], certifications: Certification[]): string {
+    let content = `## EDUCATION_AND_CERTS.DAT\n\n`;
+    
+    // Format degrees
+    if (degrees && degrees.length > 0) {
+        content += `### Academic Background\n\n`;
+        degrees.forEach((degree: Degree) => {
+            content += `* **${degree.degree}**\n`;
+            content += `    > Major: ${degree.major}\n`;
+            content += `    > Institution: ${degree.institution}\n`;
+            
+            if (degree.achievements && degree.achievements.length > 0) {
+                content += `    > Achievements: ${degree.achievements.join(', ')}\n`;
+            }
+            content += "\n";
+        });
+    }
+    
+    // Format certifications
+    if (certifications && certifications.length > 0) {
+        content += `### Certifications\n\n`;
+        certifications.forEach((cert: Certification) => {
+            content += `* **${cert.name}**\n`;
+            content += `    > Issuer: ${cert.issuer}\n`;
+            content += `    > Platform: ${cert.platform}\n\n`;
+        });
+    }
+    
+    return content;
+}
+
 // Process and enhance the portfolio data from JSON
 export const portfolioData: PortfolioData = {
     // About section
@@ -242,6 +329,19 @@ export const portfolioData: PortfolioData = {
     "contact": {
         title: typedPortfolioJSON.sections.contact.title,
         content: formatContactSection(typedPortfolioJSON.sections.contact.content as ContactContent)
+    },
+    
+    // Experience section
+    "experience": {
+        title: "WORK_EXPERIENCE.LOG",
+        content: typedPortfolioJSON.experience ? formatExperienceSection(typedPortfolioJSON.experience.jobs) : ""
+    },
+    
+    // Education section
+    "education": {
+        title: "EDUCATION_AND_CERTS.DAT",
+        content: typedPortfolioJSON.education ? 
+            formatEducationSection(typedPortfolioJSON.education.degrees, typedPortfolioJSON.education.certifications) : ""
     }
 };
 
