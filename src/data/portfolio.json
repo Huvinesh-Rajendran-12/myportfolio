@@ -13,7 +13,7 @@
       "content": {
         "header": "ABOUT_ME.TXT",
         "introduction": "Welcome to my computer!",
-        "bio": "Experienced Software Engineer with nearly 2 years of dedicated focus on researching, developing, and implementing cutting-edge AI applications and robust backend systems. Proficient in leveraging advanced technologies to drive innovation and deliver high-quality solutions.",
+        "bio": "Experienced Software Engineer with nearly 4 years of dedicated focus on researching, developing, and implementing cutting-edge AI applications and robust backend systems. Proficient in leveraging advanced technologies to drive innovation and deliver high-quality solutions.",
         "highlights": [
           "Passionate about building Intelligent Systems which will transform the world.",
           "Always learning and exploring new algorithms, techniques and languages.",
@@ -81,7 +81,12 @@
                 "years": 2
               },
               {
-                "name": "Haskell",
+                "name": "C",
+                "proficiency": "Intermediate",
+                "years": 2
+              },
+              {
+                "name": "Julia",
                 "proficiency": "Intermediate",
                 "years": 1
               }
@@ -150,12 +155,30 @@
             "year": 2023
           },
           {
+            "title": "Graph Neural Networks for Molecule Properties Prediction",
+            "description": "Built Graph Neural Networks (GNNs), specifically Graph Convolutional Networks (GCNs) to predict properties of molecules. Represented the molecular data in a graph format, with atoms being the nodes and bonds being the edges, allowing the GCNs to learn various properties of the molecule.",
+            "technologies": ["Python", "PyTorch", "Graph Neural Networks", "Molecular Modeling"],
+            "link": "#",
+            "linkText": "ACCESS_LOG://PROJECT_GNN_MOLECULES",
+            "featured": true,
+            "year": 2023
+          },
+          {
+            "title": "Customer Service Agent",
+            "description": "Utilized the DeepSeek API with custom prompts as the foundation for the agent. Built several database querying tools for the agent to use when required. Used SQLite as the database and FastHTML as the full stack framework for easy integration with Python code.",
+            "technologies": ["Python", "DeepSeek API", "SQLite", "FastHTML", "LLM"],
+            "link": "#",
+            "linkText": "ACCESS_LOG://PROJECT_CUSTOMER_SERVICE_AGENT",
+            "featured": true,
+            "year": 2023
+          },
+          {
             "title": "Capstone Project Recommender System (CPRS)",
             "description": "Developed a personalized content-based recommender system, aligning students with suitable projects based on their skills and interests. Implemented TF-IDF technique to construct the recommendation engine.",
             "technologies": ["Python", "Keras", "Django", "HTML", "PostgreSQL", "TF-IDF"],
             "link": "#",
             "linkText": "ACCESS_LOG://PROJECT_CPRS",
-            "featured": true,
+            "featured": false,
             "year": 2022
           },
           {

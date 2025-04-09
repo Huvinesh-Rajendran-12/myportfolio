@@ -38,6 +38,8 @@ export default function Home() {
         case 'skills': return 'think';
         case 'projects': return 'present';
         case 'contact': return 'wave';
+        case 'experience': return 'present';
+        case 'education': return 'think';
         default: return 'idle';
     }
   }, [activeSection]);
@@ -49,7 +51,9 @@ export default function Home() {
       'a': 'about',
       's': 'skills',
       'p': 'projects',
-      'c': 'contact'
+      'c': 'contact',
+      'e': 'experience',
+      'd': 'education'
     };
     
     // Handle keyboard shortcuts
@@ -183,6 +187,14 @@ export default function Home() {
                           <tr>
                             <td className="key">C</td>
                             <td className="desc">Contact section</td>
+                          </tr>
+                          <tr>
+                            <td className="key">E</td>
+                            <td className="desc">Experience section</td>
+                          </tr>
+                          <tr>
+                            <td className="key">D</td>
+                            <td className="desc">Education section</td>
                           </tr>
                           <tr>
                             <td className="key">F1</td>
