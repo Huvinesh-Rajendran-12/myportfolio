@@ -25,30 +25,26 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection, onNavigate, sect
   
   return (
     <div className="retro-navigation">
-      {/* 90s style table layout for navigation */}
-      <table className="nav-table" cellPadding="5" cellSpacing="2" border={1}>
-        <tbody>
-          <tr>
-            {sections.map((sectionId) => (
-              <td 
-                key={sectionId}
-                className={`nav-cell ${activeSection === sectionId ? 'active-cell' : ''}`}
-                onClick={() => {
-                  soundEffects.play('navigate');
-                  onNavigate(sectionId);
-                }}
-              >
-                <div className="nav-icon">{getButtonIcon(sectionId)}</div>
-                <div className="nav-text">
-                  {/* Classic 90s text-based navigation with hotkey markers */}
-                  [<span className="hotkey">{sectionId.charAt(0).toUpperCase()}</span>]
-                  {sectionId.slice(1).toUpperCase()}
-                </div>
-              </td>
-            ))}
-          </tr>
-        </tbody>
-      </table>
+      {/* Responsive navigation grid for better mobile experience */}
+      <div className="nav-grid">
+        {sections.map((sectionId) => (
+          <div 
+            key={sectionId}
+            className={`nav-button ${activeSection === sectionId ? 'active-nav' : ''}`}
+            onClick={() => {
+              soundEffects.play('navigate');
+              onNavigate(sectionId);
+            }}
+          >
+            <div className="nav-icon">{getButtonIcon(sectionId)}</div>
+            <div className="nav-text">
+              {/* Classic 90s text-based navigation with hotkey markers */}
+              [<span className="hotkey">{sectionId.charAt(0).toUpperCase()}</span>]
+              {sectionId.slice(1).toUpperCase()}
+            </div>
+          </div>
+        ))}
+      </div>
       
       {/* Classic 90s rings/bullets navigation */}
       {/* <div className="text-navigation">

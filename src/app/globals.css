@@ -844,3 +844,185 @@ body::after {
 .screen::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb); border: 1px solid #1a1a1a; box-shadow: 0 0 5px var(--scrollbar-thumb); }
 .screen::-webkit-scrollbar-thumb:hover { filter: brightness(1.2); }
 
+/* Navigation Grid Styles */
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.nav-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--nav-bg);
+    border: 2px outset var(--nav-border);
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--nav-text);
+    text-align: center;
+}
+
+.nav-button:hover {
+    background-color: var(--nav-hover-bg);
+    color: var(--nav-hover-text);
+    border-style: inset;
+}
+
+.nav-button.active-nav {
+    background-color: var(--nav-active-bg);
+    color: var(--nav-active-text);
+    border-style: inset;
+    font-weight: bold;
+}
+
+.nav-icon {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.nav-text {
+    font-family: var(--font-pixel-primary);
+    font-size: 0.9rem;
+}
+
+.nav-text .hotkey {
+    color: var(--link-color);
+}
+
+/* Responsive styles for different screen sizes */
+@media (max-width: 768px) {
+    /* Tablet and mobile styles */
+    .vintage-monitor-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        transform: scale(0.95);
+    }
+    
+    .monitor-bezel {
+        border-width: 15px;
+    }
+    
+    .crt-screen {
+        padding: 10px;
+    }
+    
+    .monitor-panel {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .nav-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-button {
+        margin: 5px;
+        font-size: 0.8rem;
+    }
+    
+    /* Adjust robot size for mobile */
+    .crt-screen .robot-container {
+        transform: scale(0.5);
+        bottom: 5px;
+        right: 5px;
+    }
+    
+    .crt-screen .robot-container.walking {
+        animation: monitor-robot-walk-mobile 6s linear infinite;
+    }
+    
+    @keyframes monitor-robot-walk-mobile {
+        0% { left: 5px; right: auto; transform: scale(0.5) scaleX(1); }
+        45% { left: calc(100% - 40px); right: auto; transform: scale(0.5) scaleX(1); }
+        50% { left: calc(100% - 40px); right: auto; transform: scale(0.5) scaleX(-1); }
+        95% { left: 5px; right: auto; transform: scale(0.5) scaleX(-1); }
+        100% { left: 5px; right: auto; transform: scale(0.5) scaleX(1); }
+    }
+    
+    /* Keyboard help panel for mobile */
+    .keyboard-help-panel {
+        width: 90%;
+        max-width: 300px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 50px;
+    }
+    
+    .keyboard-shortcuts-container {
+        margin-top: 10px;
+    }
+    
+    .shortcuts-table td {
+        padding: 5px;
+        font-size: 0.9rem;
+    }
+    
+    /* Adjust monitor controls for mobile */
+    .monitor-controls, .power-section {
+        transform: scale(0.9);
+    }
+    
+    .control-labels {
+        font-size: 0.7rem;
+    }
+    
+    /* Adjust monitor brand for mobile */
+    .monitor-brand {
+        font-size: 0.9rem;
+        bottom: -18px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Small mobile styles */
+    .vintage-monitor-container {
+        transform: scale(0.9);
+    }
+    
+    .monitor-bezel {
+        border-width: 10px;
+    }
+    
+    .monitor-brand {
+        font-size: 0.8rem;
+    }
+    
+    .power-section, .monitor-controls {
+        transform: scale(0.8);
+    }
+    
+    .nav-button {
+        font-size: 0.7rem;
+        padding: 5px;
+    }
+    
+    .screen {
+        font-size: 0.9rem;
+        padding: 5px;
+    }
+    
+    /* Make robot even smaller on very small screens */
+    .crt-screen .robot-container {
+        transform: scale(0.4);
+    }
+    
+    .crt-screen .robot-container.walking {
+        animation: monitor-robot-walk-small 5s linear infinite;
+    }
+    
+    @keyframes monitor-robot-walk-small {
+        0% { left: 2px; right: auto; transform: scale(0.4) scaleX(1); }
+        45% { left: calc(100% - 30px); right: auto; transform: scale(0.4) scaleX(1); }
+        50% { left: calc(100% - 30px); right: auto; transform: scale(0.4) scaleX(-1); }
+        95% { left: 2px; right: auto; transform: scale(0.4) scaleX(-1); }
+        100% { left: 2px; right: auto; transform: scale(0.4) scaleX(1); }
+    }
+}
+
