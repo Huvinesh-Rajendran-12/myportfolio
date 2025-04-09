@@ -41,6 +41,29 @@
 }
 
 /* Base Body Styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Main container styles */
+main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 10px 0;
+    margin: 0;
+    width: 100%;
+    overflow-y: auto;
+}
+
 /* Create retro circuit board background with gradient wave */
 @keyframes slowPulse {
     0%, 100% { opacity: 0.8; }
@@ -57,13 +80,16 @@ body {
     background-color: #0a192f; /* Deep blue base */
     color: var(--text-color);
     display: flex; /* Use flex for centering */
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    padding: 0;
+    margin: 0;
     font-size: 10px;
     line-height: 1.8;
     overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
 }
 
@@ -126,10 +152,13 @@ body::after {
 
 /* Vintage Monitor Container */
 .vintage-monitor-container {
-    width: 90vw;
-    max-width: 850px;
-    margin: 30px auto;
+    width: 85vw;
+    max-width: 900px;
+    margin: 5px auto;
     position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding-top: 0;
 }
 
 /* Monitor Bezel */
@@ -144,6 +173,7 @@ body::after {
     border: 2px solid #2c3e50;
     border-bottom-width: 25px;
     position: relative;
+    box-sizing: border-box;
 }
 
 /* Monitor Brand */
@@ -257,6 +287,7 @@ body::after {
     box-shadow: 
         inset 0 0 20px rgba(0, 0, 0, 0.8),
         inset 0 0 100px rgba(10, 25, 34, 0.5);
+    box-sizing: border-box;
 }
 
 /* Screen Curve Effect */
@@ -287,6 +318,7 @@ body::after {
     height: 100%;
     width: 100%;
     font-size: 0.95rem;
+    box-sizing: border-box;
     
     /* Add blueprint background to screen */
     background-image: 
@@ -539,7 +571,7 @@ body::after {
 /* Monitor Panel - contains navigation */
 .monitor-panel {
     background-color: #4a6670;
-    padding: 8px 15px;
+    padding: 6px 10px;
     border-radius: 0 0 15px 15px;
     border: 2px solid #34495e;
     margin-top: -5px;
@@ -847,8 +879,8 @@ body::after {
 /* Navigation Grid Styles */
 .nav-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 5px;
     width: 100%;
     margin: 0 auto;
 }
@@ -865,6 +897,8 @@ body::after {
     transition: all 0.2s ease;
     color: var(--nav-text);
     text-align: center;
+    font-size: 0.85rem;
+    min-width: 110px;
 }
 
 .nav-button:hover {
@@ -881,13 +915,18 @@ body::after {
 }
 
 .nav-icon {
-    font-size: 1.5rem;
-    margin-bottom: 5px;
+    font-size: 1.2rem;
+    margin-bottom: 3px;
 }
 
 .nav-text {
     font-family: var(--font-pixel-primary);
-    font-size: 0.9rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
 }
 
 .nav-text .hotkey {
@@ -898,33 +937,87 @@ body::after {
 @media (max-width: 768px) {
     /* Tablet and mobile styles */
     .vintage-monitor-container {
-        width: 100%;
-        max-width: 100%;
-        padding: 10px;
-        transform: scale(0.95);
+        width: 85%;
+        max-width: 85%;
+        padding: 0;
+        margin: 0 auto;
+        transform: none;
+        height: auto;
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 0;
+        overflow: visible;
+        position: relative;
+        top: 0;
     }
     
+    /* Make monitor more vertical */
     .monitor-bezel {
-        border-width: 15px;
+        border-width: 5px;
+        aspect-ratio: 3/4; /* More vertical aspect ratio */
+        height: auto;
+        max-height: 50vh;
+        margin: 0 auto;
+        transform: scale(0.9);
     }
     
     .crt-screen {
-        padding: 10px;
+        padding: 8px;
+        height: calc(100% - 16px); /* Ensure full height */
+        border-width: 10px;
+        aspect-ratio: auto; /* Override the desktop aspect ratio */
+    }
+    
+    /* Reduce font size inside monitor */
+    .screen {
+        font-size: 0.85rem;
+        line-height: 1.3;
+        padding: 12px;
+        height: 100%;
+        max-height: none;
+        overflow-y: auto;
+    }
+    
+    /* Content headings */
+    .screen h1 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .screen h2 {
+        font-size: 1.1rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .screen h3 {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .screen p {
+        margin-bottom: 0.7rem;
+    }
+    
+    /* Display navigation buttons vertically */
+    .nav-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+        gap: 4px;
     }
     
     .monitor-panel {
         flex-direction: column;
         height: auto;
-    }
-    
-    .nav-buttons {
-        flex-wrap: wrap;
-        justify-content: center;
+        padding: 3px;
     }
     
     .nav-button {
-        margin: 5px;
-        font-size: 0.8rem;
+        margin: 3px;
+        font-size: 0.7rem;
+        padding: 4px 6px;
+        width: 100%;
+        min-width: 90px;
     }
     
     /* Adjust robot size for mobile */
@@ -983,29 +1076,66 @@ body::after {
 @media (max-width: 480px) {
     /* Small mobile styles */
     .vintage-monitor-container {
-        transform: scale(0.9);
+        transform: none;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        top: 0;
+        display: flex;
+        justify-content: center;
     }
     
+    /* Even more vertical monitor for small screens */
     .monitor-bezel {
-        border-width: 10px;
+        border-width: 3px;
+        aspect-ratio: 9/16; /* Mobile phone aspect ratio */
+        height: 70vh;
+        max-height: 70vh;
+        margin: 0 auto;
+        transform: scale(0.95);
     }
     
     .monitor-brand {
         font-size: 0.8rem;
+        bottom: -16px;
     }
     
+    /* Adjust controls positioning */
     .power-section, .monitor-controls {
         transform: scale(0.8);
+        position: relative;
+    }
+    
+    /* Make navigation fully vertical */
+    .nav-grid {
+        grid-template-columns: 1fr; /* Single column for mobile screens */
+        gap: 3px;
     }
     
     .nav-button {
         font-size: 0.7rem;
         padding: 5px;
+        margin: 3px 0;
     }
     
+    /* Further reduce font size */
     .screen {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         padding: 5px;
+        line-height: 1.2;
+    }
+    
+    .screen h1 {
+        font-size: 1.1rem;
+    }
+    
+    .screen h2 {
+        font-size: 1rem;
+    }
+    
+    .screen h3 {
+        font-size: 0.9rem;
     }
     
     /* Make robot even smaller on very small screens */
@@ -1023,6 +1153,24 @@ body::after {
         50% { left: calc(100% - 30px); right: auto; transform: scale(0.4) scaleX(-1); }
         95% { left: 2px; right: auto; transform: scale(0.4) scaleX(-1); }
         100% { left: 2px; right: auto; transform: scale(0.4) scaleX(1); }
+    }
+    
+    /* Adjust keyboard help panel for very small screens */
+    .keyboard-help-panel {
+        max-width: 250px;
+        font-size: 0.8rem;
+    }
+    
+    .shortcuts-table td {
+        padding: 3px;
+        font-size: 0.8rem;
+    }
+    
+    /* Ensure the system time is visible but not too large */
+    .system-time {
+        font-size: 0.7rem;
+        top: 5px;
+        right: 5px;
     }
 }
 

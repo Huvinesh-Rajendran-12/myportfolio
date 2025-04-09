@@ -32,7 +32,9 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection, onNavigate, sect
             key={sectionId}
             className={`nav-button ${activeSection === sectionId ? 'active-nav' : ''}`}
             onClick={() => {
+              // Play sound but don't let errors block navigation
               soundEffects.play('navigate');
+              // Always navigate regardless of sound playback
               onNavigate(sectionId);
             }}
           >

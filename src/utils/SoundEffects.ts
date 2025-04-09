@@ -34,26 +34,35 @@ export class SoundEffects {
       const interactionEvents = ['click', 'touchstart', 'keydown'];
       
       const handleInteraction = () => {
-        this.hasInteracted = true;
-        
-        // Play any pending sounds
-        if (this.pendingSounds.length > 0) {
-          this.pendingSounds.forEach(sound => {
-            this.playSound(sound.name, sound.volume);
-          });
-          this.pendingSounds = [];
+        if (!this.hasInteracted) {
+          console.log('User has interacted with the page, audio can now be played');
+          this.hasInteracted = true;
+          
+          // Play any pending sounds
+          if (this.pendingSounds.length > 0) {
+            console.log(`Playing ${this.pendingSounds.length} queued sounds`);
+            this.pendingSounds.forEach(sound => {
+              this.playSound(sound.name, sound.volume);
+            });
+            this.pendingSounds = [];
+          }
+          
+          // Keep the event listeners active for a while to ensure proper initialization
+          setTimeout(() => {
+            // Remove event listeners after a delay
+            interactionEvents.forEach(event => {
+              window.removeEventListener(event, handleInteraction);
+            });
+            console.log('Removed interaction event listeners');
+          }, 1000);
         }
-        
-        // Remove event listeners once interaction has occurred
-        interactionEvents.forEach(event => {
-          window.removeEventListener(event, handleInteraction);
-        });
       };
       
       // Add event listeners for user interaction
       interactionEvents.forEach(event => {
         window.addEventListener(event, handleInteraction);
       });
+      console.log('Added interaction event listeners for audio playback');
     }
   }
 
@@ -142,6 +151,7 @@ export class SoundEffects {
     
     // If user hasn't interacted yet, queue the sound for later
     if (!this.hasInteracted) {
+      console.log(`User hasn't interacted yet, queueing sound '${name}' for later`);
       this.pendingSounds.push({ name, volume });
       return;
     }
@@ -171,14 +181,20 @@ export class SoundEffects {
         console.error(`Error during playback of sound '${name}':`, e);
       };
       
-      // Play with error handling
-      soundClone.play().catch(e => {
-        console.error(`Error playing sound '${name}':`, e);
-        // If we get an error, mark as not interacted to try again later
-        if (e.name === 'NotAllowedError') {
-          this.hasInteracted = false;
-        }
-      });
+      // Play with error handling and silent failure
+      const playPromise = soundClone.play();
+      
+      // Only add the catch handler if playPromise is actually a Promise
+      if (playPromise !== undefined) {
+        playPromise.catch(e => {
+          console.warn(`Couldn't play sound '${name}': ${e.message}`);
+          // If we get a NotAllowedError, it means the user hasn't interacted yet
+          if (e.name === 'NotAllowedError') {
+            this.hasInteracted = false;
+            console.log('User interaction required before playing audio');
+          }
+        });
+      }
     } catch (error) {
       console.error(`Error playing sound '${name}':`, error);
     }
@@ -203,8 +219,17 @@ export class SoundEffects {
   
   // Preload all sounds to ensure they're ready
   public preloadAllSounds(): void {
-    Object.keys(this.soundUrls).forEach(soundName => {
-      this.loadSound(soundName);
+    // Only preload if we're in a browser environment
+    if (typeof window === 'undefined') return;
+    
+    console.log('Preloading all sound effects...');
+    
+    // Preload each sound by name
+    Object.keys(this.soundUrls).forEach((soundName, index) => {
+      // Use setTimeout to stagger loading and reduce initial load impact
+      setTimeout(() => {
+        this.loadSound(soundName);
+      }, index * 100); // Stagger loading by 100ms per sound
     });
   }
 
