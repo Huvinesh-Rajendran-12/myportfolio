@@ -286,6 +286,7 @@ body::after {
     text-shadow: 0 0 5px var(--text-glow); /* Text glow */
     height: 100%;
     width: 100%;
+    font-size: 0.95rem;
     
     /* Add blueprint background to screen */
     background-image: 
@@ -402,7 +403,7 @@ body::after {
 .content-area h2 { 
     color: var(--header-color); 
     margin-bottom: 1em; 
-    font-size: 1.4em; 
+    font-size: 1.3em; 
     text-shadow: 0 0 8px var(--header-glow);
     font-family: var(--font-pixel-secondary);
     text-transform: uppercase;
@@ -411,7 +412,7 @@ body::after {
 .content-area ul { list-style: none; padding-left: 0; margin-top: 0.5em; margin-bottom: 0.5em; }
 .content-area li { 
     margin-bottom: 0.8em; 
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 .content-area li::before { content: "> "; color: var(--list-marker-color); }
 .content-area a { 
@@ -427,7 +428,7 @@ body::after {
     font-family: var(--font-pixel-primary);
     width: 100%;
     position: relative;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     image-rendering: pixelated;
     -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: grayscale;

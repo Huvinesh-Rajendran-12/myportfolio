@@ -162,10 +162,7 @@ function formatAboutSection(data: AboutContent): string {
             content += `>> ${highlight}\n`;
         });
     }
-    
-    // Add system time
-    content += `>> System time: ${new Date().toLocaleTimeString()}.\n\n`;
-    
+     
     // Add interests if present
     if (interests && interests.length > 0) {
         content += "Interests: ";

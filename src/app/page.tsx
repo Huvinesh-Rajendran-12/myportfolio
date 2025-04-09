@@ -6,6 +6,7 @@ import ContentDisplay from '@/components/ContentDisplay';
 import Navigation from '@/components/Navigation';
 import IntroScreen from '@/components/IntroScreen';
 import SoundToggle from '@/components/SoundToggle';
+import SystemTime from '@/components/SystemTime';
 import { portfolioData, sectionKeys } from '@/components/portfolioData'; // Import data and keys
 import { soundEffects } from '@/utils/SoundEffects'; // Import sound effects
 
@@ -159,6 +160,8 @@ export default function Home() {
               <div className="crt-screen">
                 <div className="scanline"></div>
                 <div className="glare"></div>
+                {/* System time display in the top right corner */}
+                <SystemTime />
                 <div className="screen">
                   <ContentDisplay content={currentSectionData.content} />
                 </div>
