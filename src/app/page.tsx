@@ -15,6 +15,10 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState<string>('about'); // Default section
   // State for showing/hiding keyboard shortcut help
   const [showKeyboardHelp, setShowKeyboardHelp] = useState<boolean>(false);
+  // State to track when content is loading/changing
+  const [isContentLoading, setIsContentLoading] = useState<boolean>(false);
+  // State to track when text is being typed
+  const [isTyping, setIsTyping] = useState<boolean>(false);
   
   // Preload all sounds when the component mounts
   useEffect(() => {
@@ -34,9 +38,21 @@ export default function Home() {
   };
 
   const handleNavigate = (sectionId: string) => {
-    setActiveSection(sectionId);
+    // Set loading state to true to trigger robot walking animation
+    setIsContentLoading(true);
+    
     // Play navigation sound when changing sections
     soundEffects.play('click', 0.3);
+    
+    // Change section after a short delay to show the loading animation
+    setTimeout(() => {
+      setActiveSection(sectionId);
+      
+      // After a delay, set loading to false
+      setTimeout(() => {
+        setIsContentLoading(false);
+      }, 800);
+    }, 200);
   };
   
   // Toggle keyboard help panel
@@ -101,7 +117,19 @@ export default function Home() {
       
       // Check if the pressed key matches any of our shortcuts
       if (keyboardShortcuts[key]) {
-        setActiveSection(keyboardShortcuts[key]);
+        // Set loading state to true to trigger robot walking animation
+        setIsContentLoading(true);
+        
+        // Change section after a short delay to show the loading animation
+        setTimeout(() => {
+          setActiveSection(keyboardShortcuts[key]);
+          
+          // After a delay, set loading to false
+          setTimeout(() => {
+            setIsContentLoading(false);
+          }, 800);
+        }, 200);
+        
         // If help panel is open, close it
         if (showKeyboardHelp) {
           setShowKeyboardHelp(false);
@@ -163,10 +191,13 @@ export default function Home() {
                 {/* System time display in the top right corner */}
                 <SystemTime />
                 <div className="screen">
-                  <ContentDisplay content={currentSectionData.content} />
+                  <ContentDisplay 
+                    content={currentSectionData.content}
+                    onTypingStateChange={setIsTyping} 
+                  />
                 </div>
                 {/* Render Pixel Robot with the determined pose */}
-                <PixelRobot pose={robotPose} />
+                <PixelRobot pose={robotPose} isTyping={isContentLoading || isTyping} />
               </div>
             </div>
             

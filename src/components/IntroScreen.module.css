@@ -24,6 +24,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    position: relative;
 }
 
 .introText {
@@ -36,6 +37,8 @@
     image-rendering: pixelated;
     -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    padding-top: 40px; /* Space for the robot to walk on top */
 }
 
 @keyframes blink {
@@ -80,6 +83,16 @@
     display: inline-block;
 }
 
+/* Robot positioning for walking on text */
+.robotWalkArea {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px; /* Height for the robot to walk */
+    z-index: 10;
+}
+
 /* Media queries for mobile devices */
 @media (max-width: 768px) {
     .introText {
@@ -96,6 +109,14 @@
 @keyframes touchRipple {
     0% { box-shadow: 0 0 0 0 rgba(127, 219, 202, 0.4); }
     100% { box-shadow: 0 0 0 20px rgba(127, 219, 202, 0); }
+}
+
+/* Visitor counter styling in intro screen */
+.introVisitorCounter {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
 }
 
 .introScreen:active {

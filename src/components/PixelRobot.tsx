@@ -4,38 +4,57 @@ import React, { useEffect, useState } from 'react';
 
 interface PixelRobotProps {
   pose: string; // e.g., 'idle', 'think', 'wave', 'present'
+  isTyping?: boolean; // Whether text is currently being generated
 }
 
-const PixelRobot: React.FC<PixelRobotProps> = ({ pose }) => {
-  // Retro 90s style: Add blinking text effect
-  const [blink, setBlink] = useState<boolean>(true);
-  const [visitorCount] = useState<number>(Math.floor(Math.random() * 12345) + 1000);
-
-  // Classic blinking text effect from the 90s
+const PixelRobot: React.FC<PixelRobotProps> = ({ pose, isTyping = false }) => {
+  // State for robot walking animation
+  const [walkPosition, setWalkPosition] = useState<number>(0);
+  const [walkDirection, setWalkDirection] = useState<number>(1); // 1 for right, -1 for left
+  
+  // Walking animation when text is being generated
   useEffect(() => {
-    const blinkInterval = setInterval(() => {
-      setBlink(prev => !prev);
-    }, 1000);
-    return () => clearInterval(blinkInterval);
-  }, []);
+    if (!isTyping) {
+      // Reset position when not typing
+      setWalkPosition(0);
+      return;
+    }
+    
+    const walkInterval = setInterval(() => {
+      setWalkPosition(prevPos => {
+        // Calculate new position
+        const newPos = prevPos + (walkDirection * 5);
+        
+        // Change direction if reaching screen edges
+        if (newPos > 70) {
+          setWalkDirection(-1);
+          return 70;
+        } else if (newPos < 0) {
+          setWalkDirection(1);
+          return 0;
+        }
+        
+        return newPos;
+      });
+    }, 200); // Update position every 200ms for smooth walking
+    
+    return () => clearInterval(walkInterval);
+  }, [isTyping, walkDirection]);
 
-  // Determine the full class name based on the pose prop
-  const robotClassName = `robot-container pose-${pose}`;
+  // Determine the full class name based on the pose prop and typing state
+  const robotClassName = `robot-container pose-${pose} ${isTyping ? 'walking' : ''}`;
+  
+  // Calculate the style for positioning during walking
+  const robotStyle = {
+    transform: isTyping ? `translateX(${walkPosition}%)` : 'none'
+  };
 
   return (
     <div className="retro-robot-wrapper">
-      {/* Classic 90s "under construction" and visitor counter */}
-      <div className="retro-elements">
-        <div className="construction-sign">
-          <span className={blink ? 'blink-text' : ''}>ROBOT ONLINE!</span>
-        </div>
-        <div className="visitor-counter">
-          <span>VISITORS: {visitorCount.toString().padStart(6, '0')}</span>
-        </div>
-      </div>
+      {/* Robot container */}
 
       {/* The pixel robot */}
-      <div className={robotClassName}>
+      <div className={robotClassName} style={robotStyle}>
          <div className="robot-part robot-antenna-base"></div>
          <div className="robot-part robot-antenna-tip"></div>
          <div className="robot-part robot-head">

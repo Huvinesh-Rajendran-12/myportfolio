@@ -739,26 +739,97 @@ body::after {
     position: absolute;
     bottom: 20px;
     right: 30px;
-    width: 60px;
-    height: 90px;
-    transition: transform 0.3s ease-out;
+    width: 48px; /* Smaller width */
+    height: 80px; /* Smaller height */
+    transition: transform 0.3s ease-out, bottom 0.3s ease;
     z-index: 20; /* Ensure robot appears above screen effects but below scanlines */
+    transform-origin: bottom center;
+    transform: scale(0.8); /* Make robot 80% of original size */
 }
 .robot-part { position: absolute; background-color: var(--robot-body); border: 1px solid var(--robot-border); transition: transform 0.3s ease-out, background-color 0.3s ease; }
-.robot-head { width: 36px; height: 30px; top: 0; left: 12px; border-radius: 4px 4px 0 0; }
-.robot-eye { width: 8px; height: 8px; background-color: var(--robot-eye); border: 1px solid var(--robot-eye-border); top: 10px; left: 14px; animation: robot-blink 4s infinite step-end; box-shadow: 0 0 8px var(--robot-eye); }
-.robot-antenna-base { width: 4px; height: 10px; top: -10px; left: 16px; background-color: var(--robot-joint); }
-.robot-antenna-tip { width: 8px; height: 8px; background-color: var(--robot-accent); border-radius: 50%; top: -18px; left: 14px; box-shadow: 0 0 5px var(--robot-accent); }
-.robot-torso { width: 60px; height: 45px; top: 30px; left: 0; border-radius: 4px; }
-.robot-chest-light { width: 12px; height: 12px; background-color: var(--robot-joint); border-radius: 50%; top: 16px; left: 24px; animation: robot-pulse 2s infinite ease-in-out; }
-.robot-leg-left, .robot-leg-right { width: 18px; height: 25px; top: 75px; border-radius: 0 0 3px 3px; background-color: var(--robot-body); }
-.robot-leg-left { left: 6px; }
-.robot-leg-right { left: 36px; }
-.robot-arm-right { display: none; width: 10px; height: 30px; background-color: var(--robot-body); border: 1px solid var(--robot-border); top: 35px; left: 60px; transform-origin: top center; border-radius: 3px; }
+.robot-head { width: 30px; height: 24px; top: 0; left: 9px; border-radius: 4px 4px 0 0; }
+.robot-eye { width: 6px; height: 6px; background-color: var(--robot-eye); border: 1px solid var(--robot-eye-border); top: 8px; left: 12px; animation: robot-blink 4s infinite step-end; box-shadow: 0 0 8px var(--robot-eye); }
+.robot-antenna-base { width: 3px; height: 8px; top: -8px; left: 14px; background-color: var(--robot-joint); }
+.robot-antenna-tip { width: 6px; height: 6px; background-color: var(--robot-accent); border-radius: 50%; top: -14px; left: 12px; box-shadow: 0 0 5px var(--robot-accent); }
+.robot-torso { width: 48px; height: 36px; top: 24px; left: 0; border-radius: 4px; }
+.robot-chest-light { width: 10px; height: 10px; background-color: var(--robot-joint); border-radius: 50%; top: 13px; left: 19px; animation: robot-pulse 2s infinite ease-in-out; }
+.robot-leg-left, .robot-leg-right { width: 14px; height: 20px; top: 60px; border-radius: 0 0 3px 3px; background-color: var(--robot-body); }
+.robot-leg-left { left: 5px; }
+.robot-leg-right { left: 29px; }
+.robot-arm-right { display: none; width: 8px; height: 24px; background-color: var(--robot-body); border: 1px solid var(--robot-border); top: 28px; left: 48px; transform-origin: top center; border-radius: 3px; }
 
 /* Robot Animations / Poses */
 @keyframes robot-blink { 0%, 90%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
 @keyframes robot-pulse { 0%, 100% { box-shadow: 0 0 4px var(--robot-joint); } 50% { box-shadow: 0 0 10px var(--robot-joint); opacity: 0.7;} }
+
+/* Walking animation */
+@keyframes robot-walk-legs {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-2px); }
+    75% { transform: translateY(2px); }
+}
+
+.robot-container.walking .robot-leg-left {
+    animation: robot-walk-legs 0.4s infinite ease-in-out alternate;
+}
+
+.robot-container.walking .robot-leg-right {
+    animation: robot-walk-legs 0.4s infinite ease-in-out alternate-reverse;
+}
+
+.robot-container.walking .robot-head {
+    animation: robot-walk-head 0.8s infinite ease-in-out;
+}
+
+@keyframes robot-walk-head {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    75% { transform: rotate(-3deg); }
+}
+
+/* Special styling for robot in the intro screen */
+.robotWalkArea .robot-container {
+    position: absolute;
+    bottom: -15px; /* Position at the bottom of the walk area */
+    right: auto;
+    left: 0;
+    transform: scale(0.7); /* Make robot even smaller in intro */
+    transition: transform 0.2s ease-out, left 0.3s linear;
+}
+
+.robotWalkArea .robot-container.walking {
+    animation: robot-walk-across 15s linear infinite;
+}
+
+/* Robot inside the monitor screen */
+.crt-screen .robot-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    transform: scale(0.6); /* Make robot smaller inside the monitor */
+    z-index: 20; /* Above content but below scanlines */
+}
+
+.crt-screen .robot-container.walking {
+    animation: monitor-robot-walk 8s linear infinite;
+}
+
+@keyframes robot-walk-across {
+    0% { left: 0; }
+    45% { left: calc(100% - 60px); }
+    50% { left: calc(100% - 60px); transform: scaleX(1); }
+    55% { left: calc(100% - 60px); transform: scaleX(-1); }
+    95% { left: 0; transform: scaleX(-1); }
+    100% { left: 0; transform: scaleX(1); }
+}
+
+@keyframes monitor-robot-walk {
+    0% { left: 10px; right: auto; transform: scale(0.6) scaleX(1); }
+    45% { left: calc(100% - 50px); right: auto; transform: scale(0.6) scaleX(1); }
+    50% { left: calc(100% - 50px); right: auto; transform: scale(0.6) scaleX(-1); }
+    95% { left: 10px; right: auto; transform: scale(0.6) scaleX(-1); }
+    100% { left: 10px; right: auto; transform: scale(0.6) scaleX(1); }
+}
 .robot-container.pose-idle { transform: translateY(0); }
 .robot-container.pose-think .robot-head { transform: rotate(-12deg) translate(-4px, 2px); }
 .robot-container.pose-think .robot-eye { background-color: var(--robot-accent); box-shadow: 0 0 8px var(--robot-accent); }

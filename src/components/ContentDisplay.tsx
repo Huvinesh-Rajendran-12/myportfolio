@@ -1,13 +1,15 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { soundEffects } from '@/utils/SoundEffects';
 
 interface ContentDisplayProps {
   content: string; // HTML content string
   speed?: number;
+  onTypingStateChange?: (isTyping: boolean) => void;
 }
 
-const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 5 }) => {
+const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 5, onTypingStateChange }) => {
   const [displayedContent, setDisplayedContent] = useState('');
   const [showCursor, setShowCursor] = useState(false);
   const [isNewContent, setIsNewContent] = useState(true);
@@ -28,6 +30,14 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 5 }) =
     }
     setDisplayedContent(''); // Clear immediately
     setShowCursor(true); // Show cursor at start
+    
+    // Notify parent that typing has started
+    if (onTypingStateChange) {
+      onTypingStateChange(true);
+    }
+    
+    // Play typing sound
+    soundEffects.play('keypress', 0.2);
 
     let i = 0;
     let currentHtml = '';
@@ -67,7 +77,11 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 5 }) =
       } else {
         // Typing finished
         setShowCursor(true); // Keep cursor visible
-        console.log("Typing finished.");
+        
+        // Notify parent that typing has finished
+        if (onTypingStateChange) {
+          onTypingStateChange(false);
+        }
       }
     }
 
@@ -80,7 +94,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 5 }) =
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [content, speed]); // Rerun effect when content or speed changes
+  }, [content, speed, onTypingStateChange]); // Rerun effect when content, speed, or callback changes
 
   // Use isNewContent to show loading message
   useEffect(() => {
