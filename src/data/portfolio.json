@@ -169,6 +169,17 @@
             "status": "completed"
           },
           {
+            "title": "Absorption, Distribution, Metabolism, Excretion, and Toxicity (ADMET) prediction model",
+            "description": "Developed a prototype machine learning model to predict ADMET properties of drug-like molecules. Utilized various machine learning algorithms to build a robust model that can predict absorption, distribution, metabolism, excretion, and toxicity of drug-like molecules.",
+            "technologies": ["Python", "Machine Learning", "Drug Discovery"],
+            "link": "https://github.com/Huvinesh-Rajendran-12/admet",
+            "linkText": "ACCESS_LOG://PROJECT_ADMET",
+            "featured": true,
+            "year": 2024,
+            "isPrivate": false,
+            "status": "completed"
+          },
+          {
             "title": "Keras Geometric",
             "description": "Developed a Keras Geometric extension for graph neural networks, enabling the integration of graph data into deep learning workflows. Utilized custom layers and models to process graph-structured data, enhancing the model's ability to handle complex relationships and patterns.",
             "technologies": ["Python", "Keras", "Graph Neural Networks", "Deep Learning"],
