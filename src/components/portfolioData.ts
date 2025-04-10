@@ -49,6 +49,7 @@ interface PortfolioJSON {
         degrees: Degree[];
         certifications: Certification[];
     };
+    visits?: number;
 }
 
 // Define types for section content
@@ -376,3 +377,13 @@ export const portfolioConfig = typedPortfolioJSON.config;
 // Export metadata for use in other components
 export const portfolioMetadata = typedPortfolioJSON.metadata;
 
+// Export visits for use in other components
+export const portfolioVisits = typedPortfolioJSON.visits;
+
+// update visits
+export const updateVisits = () => {
+    if (typedPortfolioJSON.visits !== undefined) {
+        typedPortfolioJSON.visits += 1;
+        localStorage.setItem('portfolioVisits', typedPortfolioJSON.visits.toString());
+    }
+};
