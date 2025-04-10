@@ -362,13 +362,9 @@ export const portfolioData: PortfolioData = {
 };
 
 // Export section keys for navigation mapping if needed elsewhere
-// Custom order for sections with Education before Contact
+// Sort sections strictly by displayOrder
 export const sectionKeys = Object.keys(portfolioData).sort((a, b) => {
-    // Custom ordering for education and contact
-    if (a === 'education' && b === 'contact') return -1;
-    if (a === 'contact' && b === 'education') return 1;
-    
-    // For other sections, use displayOrder from the JSON
+    // Get displayOrder from the JSON, with fallbacks for sections at root level
     const orderA = typedPortfolioJSON.sections[a]?.displayOrder || 999;
     const orderB = typedPortfolioJSON.sections[b]?.displayOrder || 999;
     return orderA - orderB;
