@@ -62,7 +62,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection, onNavigate, sect
             className={`nav-button ${activeSection === sectionId ? 'active-nav' : ''}`}
             onClick={() => {
               // Play sound but don't let errors block navigation
-              soundEffects.play('navigate');
+              soundEffects.play('navigate', 0.3);
               // Always navigate regardless of sound playback
               onNavigate(sectionId);
             }}
