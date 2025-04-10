@@ -21,8 +21,8 @@ const vt323 = VT323({
 });
 
 export const metadata: Metadata = {
-  title: "Retro Robot Portfolio [Sunset]", // Updated title
-  description: "2D pixel robot portfolio with a synthwave sunset theme.",
+  title: "Huvinesh's Portfolio", // Updated title
+  description: "Let's make software awesome again.",
 };
 
 export default function RootLayout({
