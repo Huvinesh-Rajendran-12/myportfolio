@@ -143,7 +143,8 @@
             "linkText": "ACCESS_LOG://PROJECT_HEALTHCARE_CHATBOT",
             "featured": true,
             "year": 2023,
-            "isPrivate": true
+            "isPrivate": true,
+            "status": "completed"
           },
           {
             "title": "Content-Based Health Product Recommendation System",
@@ -153,17 +154,30 @@
             "linkText": "ACCESS_LOG://PROJECT_HEALTH_RECOMMENDER",
             "featured": true,
             "year": 2023,
-            "isPrivate": true
+            "isPrivate": true,
+            "status": "completed"
           },
           {
             "title": "Graph Neural Networks for Molecule Properties Prediction",
             "description": "Built Graph Neural Networks (GNNs), specifically Graph Convolutional Networks (GCNs) to predict properties of molecules. Represented the molecular data in a graph format, with atoms being the nodes and bonds being the edges, allowing the GCNs to learn various properties of the molecule.",
             "technologies": ["Python", "PyTorch", "Graph Neural Networks", "Molecular Modeling"],
-            "link": "#",
+            "link": "https://gitlab.com/ai432809/Proteins",
             "linkText": "ACCESS_LOG://PROJECT_GNN_MOLECULES",
             "featured": true,
-            "year": 2023,
-            "isPrivate": true
+            "year": 2024,
+            "isPrivate": false,
+            "status": "completed"
+          },
+          {
+            "title": "Keras Geometric",
+            "description": "Developed a Keras Geometric extension for graph neural networks, enabling the integration of graph data into deep learning workflows. Utilized custom layers and models to process graph-structured data, enhancing the model's ability to handle complex relationships and patterns.",
+            "technologies": ["Python", "Keras", "Graph Neural Networks", "Deep Learning"],
+            "link": "https://github.com/keras-geometric/keras-geometric",
+            "linkText": "ACCESS_LOG://PROJECT_KERAS_GEOMETRIC",
+            "featured": true,
+            "year": 2025,
+            "isPrivate": false,
+            "status": "in-progress"
           },
           {
             "title": "Customer Service Agent",
@@ -173,25 +187,8 @@
             "linkText": "ACCESS_LOG://PROJECT_CUSTOMER_SERVICE_AGENT",
             "featured": true,
             "year": 2023,
-            "isPrivate": true
-          },
-          {
-            "title": "Capstone Project Recommender System (CPRS)",
-            "description": "Developed a personalized content-based recommender system, aligning students with suitable projects based on their skills and interests. Implemented TF-IDF technique to construct the recommendation engine.",
-            "technologies": ["Python", "Keras", "Django", "HTML", "PostgreSQL", "TF-IDF"],
-            "link": "#",
-            "linkText": "ACCESS_LOG://PROJECT_CPRS",
-            "featured": false,
-            "year": 2022
-          },
-          {
-            "title": "Multi-Lingual BPE Tokenizer",
-            "description": "Created a Multi-Lingual BPE Tokenizer using Byte-Pair Encoding inspired by GPT4, implemented in Julia. The tokenizer encodes characters into unicode representations and optimizes vocabulary by grouping frequently used byte pairs.",
-            "technologies": ["Julia", "BPE", "NLP", "Tokenization"],
-            "link": "#",
-            "linkText": "ACCESS_LOG://PROJECT_BPE_TOKENIZER",
-            "featured": false,
-            "year": 2022
+            "isPrivate": true,
+            "status": "completed"
           }
         ]
       },
@@ -202,7 +199,7 @@
     },
     "contact": {
       "title": "CONTACT.INF",
-      "displayOrder": 6,
+      "displayOrder": 99,
       "icon": "mail",
       "content": {
         "header": "CONTACT.INF",

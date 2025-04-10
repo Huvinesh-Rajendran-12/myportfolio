@@ -96,6 +96,7 @@ interface Project {
     featured: boolean;
     year: number;
     isPrivate?: boolean; // Flag to indicate if this is a private work project
+    status?: 'completed' | 'in-progress' | 'planned' | 'archived'; // Project completion status
 }
 
 // Contact section content type
@@ -216,7 +217,15 @@ function formatProjectsSection(data: ProjectsContent): string {
             // Add a private project indicator if applicable
             const privateTag = project.isPrivate ? ' <span class="private-project">[PRIVATE WORK]</span>' : '';
             
-            content += `* **${project.title}${privateTag}**\n`;
+            // Add status indicator if available
+            let statusTag = '';
+            if (project.status) {
+                const statusClass = `status-${project.status}`;
+                const statusLabel = project.status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+                statusTag = ` <span class="project-status ${statusClass}">[${statusLabel}]</span>`;
+            }
+            
+            content += `* **${project.title}${privateTag}${statusTag}**\n`;
             content += `    > ${project.description}\n`;
             if (project.technologies) {
                 content += `    > Technologies: ${project.technologies.join(', ')}\n`;
@@ -353,7 +362,12 @@ export const portfolioData: PortfolioData = {
 };
 
 // Export section keys for navigation mapping if needed elsewhere
-export const sectionKeys = Object.keys(portfolioData);
+// Sort sections by displayOrder to ensure they appear in the correct order
+export const sectionKeys = Object.keys(portfolioData).sort((a, b) => {
+    const orderA = typedPortfolioJSON.sections[a]?.displayOrder || 999;
+    const orderB = typedPortfolioJSON.sections[b]?.displayOrder || 999;
+    return orderA - orderB;
+});
 
 // Export config settings for use in other components
 export const portfolioConfig = typedPortfolioJSON.config;
