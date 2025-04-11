@@ -9,7 +9,7 @@ interface ContentDisplayProps {
   onTypingStateChange?: (isTyping: boolean) => void;
 }
 
-const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 5, onTypingStateChange }) => {
+const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 1, onTypingStateChange }) => {
   const [displayedContent, setDisplayedContent] = useState('');
   const [showCursor, setShowCursor] = useState(false);
   const [isNewContent, setIsNewContent] = useState(true);
