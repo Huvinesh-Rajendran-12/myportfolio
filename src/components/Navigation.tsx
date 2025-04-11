@@ -76,21 +76,6 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection, onNavigate, sect
           </div>
         ))}
       </div>
-      
-      {/* Classic 90s rings/bullets navigation */}
-      {/* <div className="text-navigation">
-        {sections.map((sectionId, index) => (
-          <React.Fragment key={sectionId}>
-            <span 
-              className={`text-nav-item ${activeSection === sectionId ? 'active-text-nav' : ''}`}
-              onClick={() => onNavigate(sectionId)}
-            >
-              {sectionId.toUpperCase()}
-            </span>
-            {index < sections.length - 1 && <span className="nav-separator"> :: </span>}
-          </React.Fragment>
-        ))}
-      </div> */}
     </div>
   );
 };

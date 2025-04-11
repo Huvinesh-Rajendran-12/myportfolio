@@ -37,7 +37,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 5, onT
     }
     
     // Play typing sound
-    soundEffects.play('keypress', 0.2);
+    soundEffects.play('keypress', 0.15);
 
     let i = 0;
     let currentHtml = '';
@@ -81,6 +81,9 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 5, onT
         // Notify parent that typing has finished
         if (onTypingStateChange) {
           onTypingStateChange(false);
+
+          // stop sound
+          soundEffects.stop('keypress');
         }
       }
     }
@@ -107,14 +110,6 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 5, onT
   
   return (
     <div ref={contentRef} className="content-area retro-content">
-      {/* Classic 90s marquee and divider */}
-      {/* <div className="retro-header">
-        <div className="retro-marquee">
-          ★ WELCOME TO MY WEB ZONE ★ BEST VIEWED WITH NETSCAPE NAVIGATOR 3.0 ★
-        </div>
-        <div className="retro-divider">===================================</div>
-      </div> */}
-      
       {/* Loading message - classic 90s element */}
       {isNewContent && (
         <div className="loading-message">Loading... please wait...</div>
