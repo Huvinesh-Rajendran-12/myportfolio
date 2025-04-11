@@ -158,6 +158,28 @@
             "status": "completed"
           },
           {
+            "title": "Customer Service Agent",
+            "description": "Utilized the DeepSeek API with custom prompts as the foundation for the agent. Built several database querying tools for the agent to use when required. Used SQLite as the database and FastHTML as the full stack framework for easy integration with Python code.",
+            "technologies": ["Python", "DeepSeek API", "SQLite", "FastHTML", "LLM"],
+            "link": "#",
+            "linkText": "ACCESS_LOG://PROJECT_CUSTOMER_SERVICE_AGENT",
+            "featured": true,
+            "year": 2023,
+            "isPrivate": true,
+            "status": "completed"
+          },
+          {
+            "title": "Food Vision",
+            "description": "Developed a food recognition system using a vision transformer model. This project analyzes images of food, classifies the type of food, and provides an estimated calorie count.",
+            "technologies": ["Python", "Vision Transformer", "Computer Vision", "Deep Learning"],
+            "link": "#",
+            "linkText": "ACCESS_LOG://PROJECT_FOOD_VISION",
+            "featured": true,
+            "year": 2024,
+            "isPrivate": true,
+            "status": "completed"
+          },
+          {
             "title": "Graph Neural Networks for Molecule Properties Prediction",
             "description": "Built Graph Neural Networks (GNNs), specifically Graph Convolutional Networks (GCNs) to predict properties of molecules. Represented the molecular data in a graph format, with atoms being the nodes and bonds being the edges, allowing the GCNs to learn various properties of the molecule.",
             "technologies": ["Python", "PyTorch", "Graph Neural Networks", "Molecular Modeling"],
@@ -181,7 +203,7 @@
           },
           {
             "title": "Keras Geometric",
-            "description": "Developed a Keras Geometric extension for graph neural networks, enabling the integration of graph data into deep learning workflows. Utilized custom layers and models to process graph-structured data, enhancing the model's ability to handle complex relationships and patterns.",
+            "description": "Developing a Keras Geometric extension for Keras 3 similar to Pytorch Geometric, enabling the integration of graph data into deep learning workflows. Utilized custom layers and models to process graph-structured data, enhancing the model's ability to handle complex relationships and patterns.",
             "technologies": ["Python", "Keras", "Graph Neural Networks", "Deep Learning"],
             "link": "https://github.com/keras-geometric/keras-geometric",
             "linkText": "ACCESS_LOG://PROJECT_KERAS_GEOMETRIC",
@@ -191,15 +213,26 @@
             "status": "in-progress"
           },
           {
-            "title": "Customer Service Agent",
-            "description": "Utilized the DeepSeek API with custom prompts as the foundation for the agent. Built several database querying tools for the agent to use when required. Used SQLite as the database and FastHTML as the full stack framework for easy integration with Python code.",
-            "technologies": ["Python", "DeepSeek API", "SQLite", "FastHTML", "LLM"],
+            "title": "Stanford RNA 3D Fold Competition",
+            "description": "Participating in the Stanford RNA 3D Fold Competition, where I am developing a machine learning model to predict the 3D structure of RNA molecules based on their sequence data. Utilized deep learning techniques to improve prediction accuracy and contribute to the advancement of RNA structure prediction.",
+            "technologies": ["Python", "Deep Learning", "Machine Learning", "Bioinformatics"],
             "link": "#",
-            "linkText": "ACCESS_LOG://PROJECT_CUSTOMER_SERVICE_AGENT",
+            "linkText": "ACCESS_LOG://PROJECT_RNA_3D_FOLD",
             "featured": true,
-            "year": 2023,
+            "year": 2025,
             "isPrivate": true,
-            "status": "completed"
+            "status": "in-progress"
+          },
+          {
+            "title": "ArcPrize 2025",
+            "description": "Participating in the prestigious ArcPrize 2025 competition focused on Artificial General Intelligence. Working on solving the ARC-AGI-2 benchmark, which tests fluid intelligence and adaptability through abstract visual reasoning tasks. Developing a hybrid approach combining deep learning with program synthesis to tackle challenges in symbolic interpretation, compositional reasoning, and contextual rule application.",
+            "technologies": ["Python", "Deep Learning", "Program Synthesis", "Symbolic AI"],
+            "link": "https://arcprize.org/competition",
+            "linkText": "ACCESS_LOG://PROJECT_ARCPRIZE_2025",
+            "featured": true,
+            "year": 2025,
+            "isPrivate": false,
+            "status": "in-progress"
           }
         ]
       },
