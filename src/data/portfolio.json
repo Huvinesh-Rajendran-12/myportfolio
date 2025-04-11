@@ -231,7 +231,7 @@
             "linkText": "ACCESS_LOG://PROJECT_ARCPRIZE_2025",
             "featured": true,
             "year": 2025,
-            "isPrivate": false,
+            "isPrivate": true,
             "status": "in-progress"
           }
         ]
