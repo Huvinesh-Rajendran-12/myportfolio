@@ -158,8 +158,6 @@ export default function Home() {
           {/* Circuit glow effect for background */}
           <div className="circuit-glow"></div>
           <div className="vintage-monitor-container">
-            {/* Sound toggle button */}
-            <SoundToggle />
             
             {/* Monitor bezel with old-school design */}
             <div className="monitor-bezel">

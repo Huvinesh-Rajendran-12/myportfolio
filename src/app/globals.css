@@ -159,6 +159,11 @@ body::after {
     box-sizing: border-box;
     height: auto;
     padding-top: 0;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    contain: content;
+    content-visibility: auto;
 }
 
 /* Monitor Bezel */
@@ -174,6 +179,9 @@ body::after {
     border-bottom-width: 25px;
     position: relative;
     box-sizing: border-box;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
 }
 
 /* Monitor Brand */
@@ -288,6 +296,9 @@ body::after {
         inset 0 0 20px rgba(0, 0, 0, 0.8),
         inset 0 0 100px rgba(10, 25, 34, 0.5);
     box-sizing: border-box;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
 }
 
 /* Screen Curve Effect */
@@ -328,6 +339,10 @@ body::after {
         /* Small IC pattern */
         radial-gradient(circle at 15px 15px, rgba(127, 219, 202, 0.05) 1px, transparent 1px);
     background-size: 10px 10px, 10px 10px, 30px 30px;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    contain: paint;
 }
 
 /* CRT Effects */
@@ -350,6 +365,9 @@ body::after {
     pointer-events: none;
     animation: scanlines 8s linear infinite;
     opacity: 0.5;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 @keyframes scanlines {
@@ -372,6 +390,9 @@ body::after {
     transform: rotate(-20deg);
     pointer-events: none;
     z-index: 9;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 /* Vignette effect - darkens the edges */
@@ -455,6 +476,41 @@ body::after {
 }
 .content-area a:hover { color: var(--link-hover-color); }
 
+/* Enhanced loading state */
+.content-wrapper {
+    position: relative;
+    min-height: 200px;
+}
+
+.content-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(127, 219, 202, 0.1),
+        transparent
+    );
+    transform: translateX(-100%);
+    animation: loading-gradient 1.5s infinite;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.content-wrapper[aria-busy="true"]::before {
+    opacity: 1;
+}
+
+@keyframes loading-gradient {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
 /* Retro Content Area Styling */
 .retro-content {
     font-family: var(--font-pixel-primary);
@@ -502,29 +558,33 @@ body::after {
 
 /* Loading Message */
 .loading-message {
-    color: #00ff00; /* Bright green - terminal style */
-    margin: 10px 0;
-    animation: blink-loading 1s step-end infinite;
-    font-weight: bold;
+    color: var(--text-color);
+    font-family: var(--font-pixel-primary);
+    text-align: center;
+    padding: 1rem;
+    animation: glitch-loading 0.5s infinite;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    margin: 1rem 0;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--text-color);
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
-@keyframes blink-loading {
-    50% { opacity: 0.3; }
+@keyframes glitch-loading {
+  0% { transform: translate(0); text-shadow: none; }
+  20% { transform: translate(-2px, 2px); text-shadow: 2px -2px #ff00ff; }
+  40% { transform: translate(2px, -2px); text-shadow: -2px 2px #00ffff; }
+  60% { transform: translate(-2px); text-shadow: 2px 2px #ff00ff; }
+  80% { transform: translate(2px); text-shadow: -2px -2px #00ffff; }
+  100% { transform: translate(0); text-shadow: none; }
 }
 
 /* Retro Footer */
 .retro-footer {
-    margin-top: 20px;
-    font-size: 10px;
-    text-align: center;
-}
-
-.construction-bar {
-    color: #ff0000; /* Red warning text */
-    font-weight: bold;
-    margin-bottom: 5px;
-    letter-spacing: 1px;
-    animation: flash-construction 2s infinite;
 }
 
 @keyframes flash-construction {
@@ -596,6 +656,7 @@ body::after {
     padding: 2px 8px;
     cursor: pointer;
     margin-right: 10px;
+    transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .keyboard-help-button:active {
@@ -730,11 +791,6 @@ body::after {
     white-space: nowrap;
 }
 
-.hotkey {
-    text-decoration: underline;
-    color: #bada55; /* Soft lime for hotkey */
-}
-
 /* Text Navigation (Ring Style) */
 .text-navigation {
     margin-top: 10px;
@@ -777,6 +833,8 @@ body::after {
     z-index: 20; /* Ensure robot appears above screen effects but below scanlines */
     transform-origin: bottom center;
     transform: scale(0.8); /* Make robot 80% of original size */
+    contain: layout style paint;
+    content-visibility: auto;
 }
 .robot-part { position: absolute; background-color: var(--robot-body); border: 1px solid var(--robot-border); transition: transform 0.3s ease-out, background-color 0.3s ease; }
 .robot-head { width: 30px; height: 24px; top: 0; left: 9px; border-radius: 4px 4px 0 0; }
@@ -883,6 +941,7 @@ body::after {
     gap: 5px;
     width: 100%;
     margin: 0 auto;
+    contain: layout style;
 }
 
 .nav-button {
@@ -894,7 +953,7 @@ body::after {
     border: 2px outset var(--nav-border);
     padding: 8px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
     color: var(--nav-text);
     text-align: center;
     font-size: 0.85rem;
@@ -931,6 +990,14 @@ body::after {
 
 .nav-text .hotkey {
     color: var(--link-color);
+}
+
+/* Optimize transitions */
+.nav-button,
+.content-wrapper,
+.loading-message,
+.keyboard-help-panel {
+    will-change: transform, opacity;
 }
 
 /* Responsive styles for different screen sizes */
@@ -1172,59 +1239,66 @@ body::after {
         top: 5px;
         right: 5px;
     }
-}
+    
+    /* Mobile Optimizations */
+    .vintage-monitor-container {
+        width: 100%;
+        margin: 0;
+        padding: 5px;
+    }
 
-/* Private project styling */
-.private-project {
-    display: inline-block;
-    font-size: 0.7rem;
-    color: var(--accent-color);
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 2px 6px;
-    border-radius: 4px;
-    margin-left: 6px;
-    vertical-align: middle;
-    font-family: var(--font-pixel-primary);
-}
+    .monitor-bezel {
+        padding: 10px;
+        border-width: 8px;
+    }
 
-.private-link {
-    color: var(--accent-color);
-    font-style: italic;
-    opacity: 0.8;
-}
+    .screen {
+        padding: 12px;
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
 
-/* Project status styling */
-.project-status {
-    display: inline-block;
-    font-size: 0.7rem;
-    padding: 2px 6px;
-    border-radius: 4px;
-    margin-left: 6px;
-    vertical-align: middle;
-    font-family: var(--font-pixel-primary);
-}
+    .nav-button {
+        padding: 12px 8px;
+        min-width: 80px;
+    }
 
-.status-completed {
-    color: #00ff9d;
-    background-color: rgba(0, 255, 157, 0.1);
-    border: 1px solid rgba(0, 255, 157, 0.3);
-}
+    .nav-icon {
+        font-size: 1.4rem;
+        margin-bottom: 5px;
+    }
 
-.status-in-progress {
-    color: #00c3ff;
-    background-color: rgba(0, 195, 255, 0.1);
-    border: 1px solid rgba(0, 195, 255, 0.3);
-}
+    .keyboard-help-panel {
+        width: 90%;
+        max-width: none;
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
+        bottom: auto;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
 
-.status-planned {
-    color: #ffcc00;
-    background-color: rgba(255, 204, 0, 0.1);
-    border: 1px solid rgba(255, 204, 0, 0.3);
-}
+    .loading-message {
+        font-size: 0.8rem;
+        padding: 0.8rem;
+        margin: 0.8rem 0;
+    }
 
-.status-archived {
-    color: #ff6b6b;
-    background-color: rgba(255, 107, 107, 0.1);
-    border: 1px solid rgba(255, 107, 107, 0.3);
+    .crt-screen .robot-container {
+        transform: scale(0.5);
+        right: 5px;
+        bottom: 5px;
+    }
+
+    .close-help-btn,
+    .power-button {
+        min-width: 24px;
+        min-height: 24px;
+    }
+
+    .screen::-webkit-scrollbar {
+        width: 6px;
+    }
 }
 

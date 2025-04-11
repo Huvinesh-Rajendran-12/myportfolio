@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Press_Start_2P, VT323 } from "next/font/google";
+import SoundToggle from "@/components/SoundToggle";
 import "./globals.css";
 
 // Configure fonts using next/font
@@ -21,8 +22,15 @@ const vt323 = VT323({
 });
 
 export const metadata: Metadata = {
-  title: "Huvinesh's Portfolio", // Updated title
-  description: "Let's make software awesome again.",
+  title: "Huvinesh's Portfolio - Software Engineer",
+  description: "Software Engineer specializing in AI, Healthcare, and Web Development. Explore my projects, skills, and experience in a unique synthwave-themed portfolio.",
+  keywords: ["software engineer", "web development", "AI", "healthcare", "React", "Next.js", "TypeScript"],
+  openGraph: {
+    title: "Huvinesh's Portfolio - Software Engineer",
+    description: "Software Engineer specializing in AI, Healthcare, and Web Development",
+    type: "website",
+    images: ["/unnamed.png"],
+  },
   icons: {
     icon: "/unnamed.png",
     apple: "/unnamed.png",
@@ -36,8 +44,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* Apply font variables to body */}
-      {/* Default font set in globals.css, variables available if needed */}
+      <head>
+        {/* Preload critical assets */}
+        <link rel="preload" href="/sounds/startup.mp3" as="audio" type="audio/mpeg" />
+        <link rel="preload" href="/sounds/keypress.mp3" as="audio" type="audio/mpeg" />
+        <link rel="preload" href="/sounds/navigate.mp3" as="audio" type="audio/mpeg" />
+        
+        {/* Preload critical fonts */}
+        <link
+          rel="preload"
+          href={`https://fonts.googleapis.com/css2?family=VT323&display=swap`}
+          as="style"
+        />
+        <link
+          rel="preload"
+          href={`https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap`}
+          as="style"
+        />
+      </head>
+      <SoundToggle />
       <body className={`${inter.variable} ${pressStart2P.variable} ${vt323.variable}`}>
         {children}
       </body>

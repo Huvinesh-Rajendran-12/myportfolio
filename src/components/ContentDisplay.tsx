@@ -109,19 +109,33 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({ content, speed = 1, onT
   }, [content]);
   
   return (
-    <div ref={contentRef} className="content-area retro-content">
-      {/* Loading message - classic 90s element */}
-      {isNewContent && (
-        <div className="loading-message">Loading... please wait...</div>
-      )}
-      
-      {/* Main content area with typewriter effect */}
-      <div dangerouslySetInnerHTML={{ __html: displayedContent }} />
-      {showCursor && <span className="cursor"></span>}
-      
-      {/* Classic 90s footer with counter and last updated */}
-      <div className="retro-footer">
-        <div className="last-updated">Page Last Updated: {lastUpdated}</div>
+    <div 
+      ref={contentRef} 
+      className="content-area retro-content"
+      role="region"
+      aria-label="Portfolio Content"
+      aria-live="polite"
+      style={{ minHeight: '300px' }} // Prevent layout shifts
+    >
+      <div className="content-wrapper" style={{ opacity: isNewContent ? 0.3 : 1, transition: 'opacity 0.3s ease' }}>
+        {/* Loading message - classic 90s element */}
+        {isNewContent && (
+          <div className="loading-message" role="status" aria-live="assertive">
+            Loading... please wait...
+          </div>
+        )}
+        
+        {/* Main content area with typewriter effect */}
+        <div 
+          dangerouslySetInnerHTML={{ __html: displayedContent }} 
+          aria-busy={isNewContent}
+        />
+        {showCursor && <span className="cursor" aria-hidden="true"></span>}
+        
+        {/* Classic 90s footer with last updated */}
+        <div className="retro-footer">
+          <div className="last-updated" aria-label="Last updated date">Page Last Updated: {lastUpdated}</div>
+        </div>
       </div>
     </div>
   );

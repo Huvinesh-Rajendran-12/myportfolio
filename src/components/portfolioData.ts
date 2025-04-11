@@ -254,10 +254,9 @@ function formatContactSection(data: ContactContent): string {
     
     if (channels && channels.length > 0) {
         channels.forEach((channel: ContactChannel) => {
-            // Use type assertion to ensure TypeScript knows these are valid keys
             const iconKey = channel.type as keyof typeof ICONS;
             const iconSrc = ICONS[iconKey];
-            content += `> <a href="${channel.link}" target="_blank"><img src="${iconSrc}" alt="${channel.type}" class="social-icon-img">${channel.type.charAt(0).toUpperCase() + channel.type.slice(1)}: ${channel.value}</a>\n`;
+            content += `> <a href="${channel.link}" target="_blank" rel="noopener noreferrer"><img src="${iconSrc}" alt="${channel.type}" class="social-icon-img" loading="lazy" width="16" height="16">${channel.type.charAt(0).toUpperCase() + channel.type.slice(1)}: ${channel.value}</a>\n`;
         });
     }
     

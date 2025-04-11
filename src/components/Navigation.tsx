@@ -49,34 +49,39 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection, onNavigate, sect
   };
   
   return (
-    <div className="retro-navigation">
-      {/* Responsive navigation grid for better mobile experience */}
+    <nav className="retro-navigation" role="navigation" aria-label="Main Navigation">
       <div className="nav-grid">
-        {/* Sort sections based on displayOrder in portfolio.json */}
         {[...sections].sort((a, b) => {
-          // Strictly use displayOrder from portfolio.json
           return getSectionDisplayOrder(a) - getSectionDisplayOrder(b);
         }).map((sectionId) => (
           <div 
             key={sectionId}
             className={`nav-button ${activeSection === sectionId ? 'active-nav' : ''}`}
             onClick={() => {
-              // Play sound but don't let errors block navigation
               soundEffects.play('navigate', 0.3);
-              // Always navigate regardless of sound playback
               onNavigate(sectionId);
             }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                soundEffects.play('navigate', 0.3);
+                onNavigate(sectionId);
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-pressed={activeSection === sectionId}
+            aria-label={`${sectionId.charAt(0).toUpperCase()}${sectionId.slice(1)} section`}
           >
-            <div className="nav-icon">{getButtonIcon(sectionId)}</div>
+            <div className="nav-icon" aria-hidden="true">{getButtonIcon(sectionId)}</div>
             <div className="nav-text">
-              {/* Classic 90s text-based navigation with hotkey markers */}
               [<span className="hotkey">{sectionId.charAt(0).toUpperCase()}</span>]
               {sectionId.slice(1).toUpperCase()}
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </nav>
   );
 };
 
