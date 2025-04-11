@@ -583,9 +583,6 @@ body::after {
   100% { transform: translate(0); text-shadow: none; }
 }
 
-/* Retro Footer */
-.retro-footer {
-}
 
 @keyframes flash-construction {
     0%, 49% { color: #ff0000; }
