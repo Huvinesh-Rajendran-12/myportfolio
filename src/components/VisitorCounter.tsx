@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './VisitorCounter.module.css';
 import { updateVisits, portfolioVisits } from './portfolioData';
 
@@ -9,16 +9,23 @@ interface VisitorCounterProps {
 }
 
 const VisitorCounter: React.FC<VisitorCounterProps> = ({ className }) => {
+  // Use state to ensure the component re-renders when the count changes
+  const [visitorCount, setVisitorCount] = useState<number>(portfolioVisits || 0);
+
   useEffect(() => {
     // Only increment count once when component mounts
     // This ensures we don't count the same visitor multiple times during a session
     updateVisits();
+    
+    // Update the local state with the current count from portfolioData
+    // This ensures we display the updated count after incrementing
+    setVisitorCount(portfolioVisits);
 
     // No cleanup needed
   }, []);
 
   // Format the visitor count with leading zeros
-  const formattedCount = portfolioVisits?.toString().padStart(6, '0') || '------';
+  const formattedCount = visitorCount.toString().padStart(6, '0');
 
   return (
     <div className={`${styles.visitorCounter} ${className || ''}`}>

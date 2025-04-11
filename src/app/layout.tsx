@@ -23,6 +23,10 @@ const vt323 = VT323({
 export const metadata: Metadata = {
   title: "Huvinesh's Portfolio", // Updated title
   description: "Let's make software awesome again.",
+  icons: {
+    icon: "/unnamed.png",
+    apple: "/unnamed.png",
+  },
 };
 
 export default function RootLayout({

@@ -378,12 +378,30 @@ export const portfolioConfig = typedPortfolioJSON.config;
 export const portfolioMetadata = typedPortfolioJSON.metadata;
 
 // Export visits for use in other components
-export const portfolioVisits = typedPortfolioJSON.visits;
+export let portfolioVisits = typedPortfolioJSON.visits || 0;
+
+// Initialize visits from localStorage if available (client-side only)
+if (typeof window !== 'undefined') {
+    const storedVisits = localStorage.getItem('portfolioVisits');
+    if (storedVisits) {
+        portfolioVisits = parseInt(storedVisits, 10);
+        // Update the JSON object to match localStorage
+        typedPortfolioJSON.visits = portfolioVisits;
+    }
+}
 
 // update visits
 export const updateVisits = () => {
-    if (typedPortfolioJSON.visits !== undefined) {
-        typedPortfolioJSON.visits += 1;
-        localStorage.setItem('portfolioVisits', typedPortfolioJSON.visits.toString());
+    if (typeof window !== 'undefined') {
+        // Get the latest from localStorage first
+        const storedVisits = localStorage.getItem('portfolioVisits');
+        const currentVisits = storedVisits ? parseInt(storedVisits, 10) : (typedPortfolioJSON.visits || 0);
+        
+        // Increment and update both the exported variable and the JSON object
+        portfolioVisits = currentVisits + 1;
+        typedPortfolioJSON.visits = portfolioVisits;
+        
+        // Save to localStorage
+        localStorage.setItem('portfolioVisits', portfolioVisits.toString());
     }
 };
