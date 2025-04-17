@@ -2,36 +2,51 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 8px;
   cursor: pointer;
-  z-index: 100;
-  border: 2px solid var(--accent);
-  box-shadow: 0 0 10px var(--text-glow);
+  z-index: var(--z-nav);
   transition: all 0.3s ease;
+  font-family: var(--font-pixel-primary);
+  color: var(--text-color);
+  font-size: 0.7rem;
+  text-shadow: 0 0 5px var(--text-glow);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .soundToggle:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 15px var(--text-glow);
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px var(--glow-color);
+  border-color: var(--button-hover-bg);
 }
 
 .soundIcon {
-  font-size: 18px;
-  color: var(--text-color);
-  text-shadow: 0 0 5px var(--text-glow);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.soundLabel {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.7rem;
 }
 
 .soundOn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   animation: pulse 2s infinite;
 }
 
 .soundOff {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   opacity: 0.7;
 }
 
@@ -42,7 +57,8 @@
 
 /* Retro CRT effect when clicked */
 .soundToggle:active {
-  background-color: rgba(127, 219, 202, 0.3);
+  transform: translateY(1px);
+  background-color: var(--button-hover-bg);
 }
 
 /* Media query for mobile */
@@ -50,11 +66,32 @@
   .soundToggle {
     bottom: 15px;
     right: 15px;
-    width: 35px;
-    height: 35px;
+    padding: 6px 10px;
+    font-size: 0.65rem;
   }
   
   .soundIcon {
-    font-size: 16px;
+    font-size: 1rem;
+  }
+  
+  .soundLabel {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .soundToggle {
+    bottom: 10px;
+    right: 10px;
+    padding: 4px 8px;
+    font-size: 0.6rem;
+  }
+  
+  .soundIcon {
+    font-size: 0.9rem;
+  }
+  
+  .soundLabel {
+    font-size: 0.6rem;
   }
 }

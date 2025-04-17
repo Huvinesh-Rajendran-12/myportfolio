@@ -7,8 +7,10 @@ import Navigation from '@/components/Navigation';
 import IntroScreen from '@/components/IntroScreen';
 import SoundToggle from '@/components/SoundToggle';
 import SystemTime from '@/components/SystemTime';
+import ThemeToggle from '@/components/ThemeToggle';
 import { portfolioData, sectionKeys } from '@/components/portfolioData'; // Import data and keys
 import { soundEffects } from '@/utils/SoundEffects'; // Import sound effects
+import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation'; // Import custom hook
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState<boolean>(true);
@@ -79,72 +81,25 @@ export default function Home() {
     }
   }, [activeSection]);
 
-  // Keyboard shortcut handler
-  useEffect(() => {
-    // Map section keys to their keyboard shortcuts
-    const keyboardShortcuts: Record<string, string> = {
-      'a': 'about',
-      's': 'skills',
-      'p': 'projects',
-      'c': 'contact',
-      'e': 'experience',
-      'd': 'education'
-    };
-    
-    // Handle keyboard shortcuts
-    const handleKeyPress = (event: KeyboardEvent) => {
-      // Check if user is typing in an input field or text area
-      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
-        return; // Don't intercept typing in form elements
-      }
-      
-      const key = event.key.toLowerCase();
-      
-      // Handle F1 key for help panel
-      if (key === 'f1' || key === 'escape') {
-        // Prevent default browser behavior for F1
-        event.preventDefault();
-        
-        if (key === 'f1') {
-          // Toggle help panel
-          setShowKeyboardHelp(prev => !prev);
-        } else if (key === 'escape' && showKeyboardHelp) {
-          // Close help panel on ESC
-          setShowKeyboardHelp(false);
-        }
-        return;
-      }
-      
-      // Check if the pressed key matches any of our shortcuts
-      if (keyboardShortcuts[key]) {
-        // Set loading state to true to trigger robot walking animation
-        setIsContentLoading(true);
-        
-        // Change section after a short delay to show the loading animation
-        setTimeout(() => {
-          setActiveSection(keyboardShortcuts[key]);
-          
-          // After a delay, set loading to false
-          setTimeout(() => {
-            setIsContentLoading(false);
-          }, 800);
-        }, 200);
-        
-        // If help panel is open, close it
-        if (showKeyboardHelp) {
-          setShowKeyboardHelp(false);
-        }
-      }
-    };
-    
-    // Add event listener
-    window.addEventListener('keydown', handleKeyPress);
-    
-    // Remove event listener on cleanup
-    return () => {
-      window.removeEventListener('keydown', handleKeyPress);
-    };
-  }, [showKeyboardHelp]); // Add showKeyboardHelp to the dependency array
+  // Define keyboard shortcuts
+  const keyboardShortcuts: Record<string, string> = {
+    'a': 'about',
+    's': 'skills',
+    'p': 'projects',
+    'c': 'contact',
+    'e': 'experience',
+    'd': 'education'
+  };
+  
+  // Use our custom keyboard navigation hook
+  useKeyboardNavigation({
+    sectionShortcuts: keyboardShortcuts,
+    activeSection,
+    setActiveSection,
+    showHelp: showKeyboardHelp,
+    setShowHelp: setShowKeyboardHelp,
+    setIsContentLoading,
+  });
 
 
 
@@ -208,19 +163,29 @@ export default function Home() {
               />
               
               {/* Keyboard shortcuts button and panel */}
-              <div className="keyboard-shortcuts-container">
+              <div className="controls-container">
                 <button 
                   onClick={toggleKeyboardHelp}
                   className="keyboard-help-button"
+                  aria-expanded={showKeyboardHelp}
                 >
                   [F1] Help
                 </button>
                 
+                {/* Add theme toggle button */}
+                <ThemeToggle />
+                
                 {showKeyboardHelp && (
-                  <div className="keyboard-help-panel">
+                  <div className="keyboard-help-panel" role="dialog" aria-label="Keyboard shortcuts">
                     <div className="help-panel-header">
                       <h3>Keyboard Shortcuts</h3>
-                      <button onClick={toggleKeyboardHelp} className="close-help-btn">X</button>
+                      <button 
+                        onClick={toggleKeyboardHelp} 
+                        className="close-help-btn"
+                        aria-label="Close keyboard shortcuts panel"
+                      >
+                        X
+                      </button>
                     </div>
                     <div className="help-panel-content">
                       <table className="shortcuts-table">
@@ -252,6 +217,10 @@ export default function Home() {
                           <tr>
                             <td className="key">F1</td>
                             <td className="desc">Toggle this help panel</td>
+                          </tr>
+                          <tr>
+                            <td className="key">T</td>
+                            <td className="desc">Toggle theme</td>
                           </tr>
                         </tbody>
                       </table>

@@ -1,13 +1,47 @@
 @import "tailwindcss";
 
-/* --- Soothing Retro Theme CSS Variables --- */
+/* --- Theme CSS Variables --- */
 :root {
+    /* Base font variables */
+    --font-pixel-primary: var(--font-vt323), 'VT323', 'Courier New', monospace;
+    --font-pixel-secondary: var(--font-press-start-2p), 'Press Start 2P', monospace;
+    --font-mono: 'Courier New', monospace;
+    --font-press-start-2p: 'Press Start 2P', cursive;
+    --font-inter: 'Inter', sans-serif;
+    
+    /* Global border radius */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 15px;
+    
+    /* Animation speeds */
+    --transition-fast: 0.15s;
+    --transition-medium: 0.3s;
+    --transition-slow: 0.5s;
+    
+    /* Z-index layers */
+    --z-base: 1;
+    --z-nav: 10;
+    --z-overlay: 20;
+    --z-modal: 30;
+    --z-top: 40;
+}
+
+/* Synthwave Theme (Default) */
+.theme-synthwave, :root {
     /* Color variables */
     --bg-gradient: linear-gradient(to bottom, #2c3e50, #4a6670, #6b8e9a); /* Midnight Blue -> Steel Blue */
+    --primary-color: #ff00ff; /* Magenta */
+    --secondary-color: #00ffff; /* Cyan */
+    --accent-color: #bada55; /* Lime */
+    
+    /* Structure colors */
     --monitor-bg: #34495e; /* Dark slate */
     --monitor-border: #2c3e50;
     --screen-bg: #0a1922; /* Deep navy */
     --screen-border: #1c3144;
+    
+    /* Text colors */
     --text-color: #7fdbca; /* Soft teal */
     --text-glow: rgba(127, 219, 202, 0.4);
     --header-color: #b0c4de; /* Light steel blue */
@@ -15,29 +49,171 @@
     --link-color: #bada55; /* Soft lime */
     --link-hover-color: #d4e6a5;
     --list-marker-color: #a3c8c4; /* Dusty teal */
+    
+    /* Navigation */
     --nav-bg: #2c3e50;
     --nav-border: #34495e;
     --nav-text: #7fdbca; /* Soft teal */
     --nav-hover-bg: #3d556c;
     --nav-hover-text: #a3c8c4; /* Dusty teal */
-    
-    /* Font variables */
-    --font-pixel-primary: var(--font-vt323), 'VT323', 'Courier New', monospace;
-    --font-pixel-secondary: var(--font-press-start-2p), 'Press Start 2P', monospace;
-    --font-mono: 'Courier New', monospace;
     --nav-active-bg: #b0c4de; /* Light steel blue */
     --nav-active-text: #0a1922; /* Deep navy */
+    
+    /* Robot colors */
     --robot-body: #465a65; /* Slate gray */
     --robot-border: #2c3e50;
     --robot-joint: #7fdbca; /* Soft teal joints */
     --robot-accent: #bada55; /* Soft lime accents */
     --robot-eye: #a3c8c4; /* Dusty teal eye */
     --robot-eye-border: #7fdbca;
+    
+    /* UI elements */
     --cursor-color: var(--text-color);
     --scrollbar-track: #2c3e50;
     --scrollbar-thumb: var(--header-color);
-    --font-press-start-2p: 'Press Start 2P', cursive; /* Define font variable */
-    --font-inter: 'Inter', sans-serif; /* Define font variable */
+    --button-bg: #2c3e50;
+    --button-text: #7fdbca;
+    --button-border: #34495e;
+    --button-hover-bg: #3d556c;
+    --button-hover-text: #a3c8c4;
+    --glow-color: rgba(127, 219, 202, 0.6);
+    --border-color: #1c3144;
+}
+
+/* Cyberpunk Theme */
+.theme-cyberpunk {
+    /* Color variables */
+    --bg-gradient: linear-gradient(to bottom, #000000, #1a0f30, #121212);
+    --primary-color: #f3ea5f; /* Neon yellow */
+    --secondary-color: #ff1f57; /* Neon red */
+    --accent-color: #08f7fe; /* Electric blue */
+    
+    /* Structure colors */
+    --monitor-bg: #1a0f30; /* Deep purple */
+    --monitor-border: #ff1f57; /* Neon red border */
+    --screen-bg: #000000; /* Black */
+    --screen-border: #08f7fe; /* Electric blue */
+    
+    /* Text colors */
+    --text-color: #f3ea5f; /* Neon yellow */
+    --text-glow: rgba(243, 234, 95, 0.4);
+    --header-color: #ff1f57; /* Neon red */
+    --header-glow: rgba(255, 31, 87, 0.5);
+    --link-color: #08f7fe; /* Electric blue */
+    --link-hover-color: #76f7ff;
+    --list-marker-color: #9d00ff; /* Neon purple */
+    
+    /* Navigation */
+    --nav-bg: #1a0f30;
+    --nav-border: #ff1f57;
+    --nav-text: #f3ea5f;
+    --nav-hover-bg: #2f1a55;
+    --nav-hover-text: #76f7ff;
+    --nav-active-bg: #ff1f57;
+    --nav-active-text: #000000;
+    
+    /* Robot colors */
+    --robot-body: #2f1a55; /* Deep purple */
+    --robot-border: #ff1f57; /* Neon red */
+    --robot-joint: #08f7fe; /* Electric blue */
+    --robot-accent: #f3ea5f; /* Neon yellow */
+    --robot-eye: #9d00ff; /* Neon purple */
+    --robot-eye-border: #08f7fe;
+    
+    /* UI elements */
+    --cursor-color: var(--text-color);
+    --scrollbar-track: #1a0f30;
+    --scrollbar-thumb: #ff1f57;
+    --button-bg: #1a0f30;
+    --button-text: #f3ea5f;
+    --button-border: #ff1f57;
+    --button-hover-bg: #2f1a55;
+    --button-hover-text: #76f7ff;
+    --glow-color: rgba(243, 234, 95, 0.6);
+    --border-color: #ff1f57;
+}
+
+/* Terminal Theme */
+.theme-terminal {
+    /* Color variables */
+    --bg-gradient: linear-gradient(to bottom, #000000, #001100, #000000);
+    --primary-color: #00ff00; /* Matrix green */
+    --secondary-color: #00aa00; /* Darker green */
+    --accent-color: #ffffff; /* White */
+    
+    /* Structure colors */
+    --monitor-bg: #000000; /* Black */
+    --monitor-border: #333333;
+    --screen-bg: #000000; /* Black */
+    --screen-border: #00aa00; /* Green */
+    
+    /* Text colors */
+    --text-color: #00ff00; /* Matrix green */
+    --text-glow: rgba(0, 255, 0, 0.4);
+    --header-color: #ffffff; /* White */
+    --header-glow: rgba(255, 255, 255, 0.5);
+    --link-color: #00ff00; /* Matrix green */
+    --link-hover-color: #aaffaa;
+    --list-marker-color: #00aa00; /* Darker green */
+    
+    /* Navigation */
+    --nav-bg: #000000;
+    --nav-border: #00aa00;
+    --nav-text: #00ff00;
+    --nav-hover-bg: #001100;
+    --nav-hover-text: #aaffaa;
+    --nav-active-bg: #00aa00;
+    --nav-active-text: #000000;
+    
+    /* Robot colors */
+    --robot-body: #333333; /* Dark gray */
+    --robot-border: #00aa00; /* Darker green */
+    --robot-joint: #00ff00; /* Matrix green */
+    --robot-accent: #ffffff; /* White */
+    --robot-eye: #00ff00; /* Matrix green */
+    --robot-eye-border: #ffffff;
+    
+    /* UI elements */
+    --cursor-color: var(--text-color);
+    --scrollbar-track: #000000;
+    --scrollbar-thumb: #00aa00;
+    --button-bg: #000000;
+    --button-text: #00ff00;
+    --button-border: #00aa00;
+    --button-hover-bg: #001100;
+    --button-hover-text: #aaffaa;
+    --glow-color: rgba(0, 255, 0, 0.6);
+    --border-color: #00aa00;
+}
+
+/* Accessibility: Skip Navigation */
+.skip-nav-link {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+    z-index: var(--z-top);
+}
+
+.skip-nav-link:focus {
+    width: auto;
+    height: auto;
+    clip: auto;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 2px solid var(--button-border);
+    text-decoration: none;
+    font-size: 14px;
+    font-family: var(--font-pixel-primary);
+    outline: 3px solid var(--accent-color);
+    border-radius: var(--border-radius-sm);
 }
 
 /* Base Body Styles */
@@ -640,8 +816,11 @@ body::after {
 }
 
 /* Keyboard Shortcuts Help */
-.keyboard-shortcuts-container {
+.controls-container {
     position: relative;
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .keyboard-help-button {

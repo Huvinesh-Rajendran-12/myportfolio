@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Press_Start_2P, VT323 } from "next/font/google";
 import SoundToggle from "@/components/SoundToggle";
+import { ThemeProvider } from "@/context/ThemeContext";
 import "./globals.css";
 
 // Configure fonts using next/font
@@ -62,9 +63,21 @@ export default function RootLayout({
           as="style"
         />
       </head>
-      <SoundToggle />
       <body className={`${inter.variable} ${pressStart2P.variable} ${vt323.variable}`}>
-        {children}
+        <ThemeProvider>
+          <SoundToggle />
+          {/* Skip navigation link for accessibility */}
+          <a 
+            href="#main-content" 
+            className="skip-nav-link"
+            aria-label="Skip to main content"
+          >
+            Skip to main content
+          </a>
+          <main id="main-content">
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

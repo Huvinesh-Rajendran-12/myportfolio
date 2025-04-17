@@ -4,7 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { soundEffects } from '@/utils/SoundEffects';
 import styles from './SoundToggle.module.css';
 
-const SoundToggle: React.FC = () => {
+interface SoundToggleProps {
+  className?: string;
+}
+
+const SoundToggle: React.FC<SoundToggleProps> = ({ className }) => {
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
 
   useEffect(() => {
@@ -23,17 +27,24 @@ const SoundToggle: React.FC = () => {
   };
 
   return (
-    <div className={styles.soundToggle} onClick={toggleSound}>
+    <button 
+      className={`${styles.soundToggle} ${className || ''}`} 
+      onClick={toggleSound}
+      aria-label={soundEnabled ? "Turn sound off" : "Turn sound on"}
+      aria-pressed={soundEnabled}
+    >
       {soundEnabled ? (
-        <div className={styles.soundOn} title="Sound On">
-          <span className={styles.soundIcon}>🔊</span>
+        <div className={styles.soundOn}>
+          <span className={styles.soundIcon} aria-hidden="true">🔊</span>
+          <span className={styles.soundLabel}>SOUND ON</span>
         </div>
       ) : (
-        <div className={styles.soundOff} title="Sound Off">
-          <span className={styles.soundIcon}>🔇</span>
+        <div className={styles.soundOff}>
+          <span className={styles.soundIcon} aria-hidden="true">🔇</span>
+          <span className={styles.soundLabel}>SOUND OFF</span>
         </div>
       )}
-    </div>
+    </button>
   );
 };
 

@@ -5,37 +5,86 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  font-family: var(--font-pixel-secondary);
+  font-family: var(--font-pixel-primary);
   color: var(--text-color);
   text-shadow: 0 0 5px var(--text-glow);
-  z-index: 20;
+  z-index: var(--z-nav);
   font-size: 10px;
   line-height: 1.4;
   text-transform: uppercase;
   letter-spacing: 1px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 6px 10px;
+  transition: all 0.3s ease;
 }
 
 .counterLabel {
-  color: var(--accent);
-  animation: blink 2s infinite step-end;
+  color: var(--primary-color);
   font-weight: bold;
+  animation: blink 2s infinite step-end;
 }
 
 .counterValue {
-  font-family: var(--font-pixel-mono);
+  font-family: var(--font-mono);
   letter-spacing: 1px;
 }
 
+/* Loading state */
+.loading .counterValue {
+  opacity: 0.7;
+}
+
+.loadingDots {
+  animation: loadingDots 1.5s infinite;
+  display: inline-block;
+  width: 10px;
+}
+
+@keyframes loadingDots {
+  0%, 20% { content: "."; }
+  40% { content: ".."; }
+  60%, 100% { content: "..."; }
+}
+
+/* Position when inside IntroScreen */
+.introVisitorCounter {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 50;
+  opacity: 0.9;
+  font-size: 0.65rem;
+}
+
+/* Blinking animation */
 @keyframes blink {
   0%, 80% { opacity: 1; }
   90%, 100% { opacity: 0.4; }
 }
 
-/* Media queries for mobile devices */
+/* Hover effect */
+.visitorCounter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Media queries for responsive design */
 @media (max-width: 768px) {
   .visitorCounter {
     font-size: 8px;
     top: 15px;
     right: 15px;
+    padding: 5px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .visitorCounter {
+    font-size: 7px;
+    top: 5px;
+    right: 5px;
+    padding: 3px 6px;
   }
 }
