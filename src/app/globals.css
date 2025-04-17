@@ -5,9 +5,10 @@
     /* Base font variables */
     --font-pixel-primary: var(--font-vt323), 'VT323', 'Courier New', monospace;
     --font-pixel-secondary: var(--font-press-start-2p), 'Press Start 2P', monospace;
-    --font-mono: 'Courier New', monospace;
+    --font-mono: var(--font-space-mono), 'Space Mono', 'Courier New', monospace;
     --font-press-start-2p: 'Press Start 2P', cursive;
     --font-inter: 'Inter', sans-serif;
+    --font-space-mono: 'Space Mono', monospace;
     
     /* Global border radius */
     --border-radius-sm: 4px;
@@ -25,6 +26,11 @@
     --z-overlay: 20;
     --z-modal: 30;
     --z-top: 40;
+    
+    /* RGB color values for transparency operations */
+    --primary-color-rgb: 255, 0, 255; /* Magenta */
+    --secondary-color-rgb: 0, 255, 255; /* Cyan */
+    --text-color-rgb: 127, 219, 202; /* Soft teal */
 }
 
 /* Synthwave Theme (Default) */

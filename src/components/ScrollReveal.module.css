@@ -1,0 +1,53 @@
+.scrollReveal {
+  will-change: transform, opacity;
+  transition-property: opacity, transform;
+  transition-duration: var(--duration, 1000ms);
+  transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Entry directions */
+.fromBottom {
+  transform: translate3d(0, 40px, 0);
+}
+
+.fromTop {
+  transform: translate3d(0, -40px, 0);
+}
+
+.fromLeft {
+  transform: translate3d(-40px, 0, 0);
+}
+
+.fromRight {
+  transform: translate3d(40px, 0, 0);
+}
+
+.noTranslate {
+  transform: translate3d(0, 0, 0);
+}
+
+/* Visibility states */
+.hidden {
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+/* Add animation delay support through CSS custom properties */
+.scrollReveal[style*="--delay"] {
+  transition-delay: var(--delay);
+}
+
+/* Responsive behavior */
+@media (prefers-reduced-motion: reduce) {
+  .scrollReveal {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

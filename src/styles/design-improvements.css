@@ -1,0 +1,269 @@
+/* ====================================
+   DESIGN IMPROVEMENTS
+   Enhanced visual design for portfolio
+   ==================================== */
+
+@import './design-tokens.css';
+
+/* Base improvements */
+body {
+  font-feature-settings: 'kern', 'liga', 'calt';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle texture overlay for retro feel */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: var(--grain-opacity);
+  will-change: transform;
+}
+
+/* Enhanced Typography */
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.025em;
+  font-weight: bold;
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-md);
+}
+
+h1 {
+  font-size: var(--text-4xl);
+}
+
+h2 {
+  font-size: var(--text-3xl);
+}
+
+h3 {
+  font-size: var(--text-2xl);
+}
+
+p, li {
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-md);
+}
+
+/* Enhanced Links */
+a {
+  transition: all var(--transition-fast) ease;
+  position: relative;
+}
+
+a:hover {
+  transform: translateY(-1px);
+}
+
+a:active {
+  transform: translateY(0);
+}
+
+/* Button Enhancements */
+button, 
+.button {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  transition: all var(--transition-normal) ease;
+}
+
+button:hover, 
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+button:active, 
+.button:active {
+  transform: translateY(0);
+}
+
+/* Button hover effect */
+button::after,
+.button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform var(--transition-slow) ease;
+  pointer-events: none;
+}
+
+button:hover::after,
+.button:hover::after {
+  transform: translateX(100%);
+}
+
+/* Improved focus states */
+button:focus,
+.button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+[tabindex]:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-color), 0 0 0 4px rgba(var(--primary-color-rgb), 0.3);
+}
+
+/* Enhanced card styles */
+.card {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal) ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Improved scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: var(--radius-full);
+  box-shadow: var(--glow-sm) var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+/* Typography animation effect */
+@keyframes text-flicker {
+  0%, 100% { opacity: 1; }
+  33% { opacity: 0.95; }
+  66% { opacity: 0.97; }
+}
+
+.flicker-text {
+  animation: text-flicker 2s infinite alternate;
+}
+
+/* Enhanced monitor styling */
+.monitor-bezel {
+  box-shadow: var(--shadow-lg), inset 0 0 var(--glow-md) rgba(0, 0, 0, 0.5);
+}
+
+.crt-screen {
+  box-shadow: var(--shadow-inner), inset 0 0 var(--glow-md) rgba(0, 0, 0, 0.7);
+}
+
+/* Improved CRT screen */
+.crt-screen::before {
+  border-radius: 50% / 10%;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Enhanced content display */
+.content-area {
+  line-height: var(--line-height-normal);
+  font-size: var(--text-md);
+}
+
+.content-area h2 {
+  margin-bottom: var(--space-lg);
+  position: relative;
+  display: inline-block;
+}
+
+.content-area h2::after {
+  content: '';
+  position: absolute;
+  bottom: -var(--space-sm);
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--primary-color);
+  box-shadow: var(--glow-sm) var(--primary-color);
+}
+
+/* Improved list styling */
+.content-area ul {
+  margin-left: var(--space-md);
+}
+
+.content-area li {
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+
+.content-area li::before {
+  color: var(--list-marker-color);
+  margin-right: var(--space-sm);
+  text-shadow: var(--glow-sm) var(--list-marker-color);
+}
+
+/* Enhanced loading animation */
+@keyframes loading-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.loading-indicator {
+  display: inline-block;
+  position: relative;
+  animation: loading-pulse var(--transition-slow) infinite;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  :root {
+    /* Scale down spacing on mobile */
+    --space-md: 0.75rem;
+    --space-lg: 1.25rem;
+    --space-xl: 1.75rem;
+    
+    /* Scale down typography on mobile */
+    --text-md: 0.9rem;
+    --text-lg: 1rem;
+    --text-xl: 1.125rem;
+    --text-2xl: 1.25rem;
+    --text-3xl: 1.5rem;
+    --text-4xl: 1.75rem;
+  }
+}
+
+/* Theme-based enhancements */
+.theme-synthwave .monitor-bezel {
+  background: linear-gradient(135deg, #34495e, #2c3e50);
+}
+
+.theme-cyberpunk .monitor-bezel {
+  background: linear-gradient(135deg, #1a0f30, #100a20);
+  border-color: var(--secondary-color);
+}
+
+.theme-terminal .monitor-bezel {
+  background: #000000;
+  border-color: var(--primary-color);
+}

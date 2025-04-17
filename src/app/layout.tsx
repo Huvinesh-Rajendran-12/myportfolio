@@ -1,25 +1,36 @@
 import type { Metadata } from "next";
-import { Inter, Press_Start_2P, VT323 } from "next/font/google";
+import { Inter, Press_Start_2P, VT323, Space_Mono } from "next/font/google";
 import SoundToggle from "@/components/SoundToggle";
 import { ThemeProvider } from "@/context/ThemeContext";
 import "./globals.css";
+import "@/styles/design-improvements.css";
 
 // Configure fonts using next/font
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-inter", // CSS variable for Inter (if needed elsewhere)
+  variable: "--font-inter",
+  display: "swap",
 });
 
 const pressStart2P = Press_Start_2P({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-press-start-2p", // CSS variable for Press Start 2P
+  variable: "--font-press-start-2p",
+  display: "swap",
 });
 
 const vt323 = VT323({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-vt323", // CSS variable for VT323
+  variable: "--font-vt323",
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -31,11 +42,21 @@ export const metadata: Metadata = {
     description: "Software Engineer specializing in AI, Healthcare, and Web Development",
     type: "website",
     images: ["/unnamed.png"],
+    url: "https://portfolio.huvinesh.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Huvinesh Rajendran - Software Engineer Portfolio",
+    description: "Software Engineer specializing in AI, Healthcare, and Web Development",
+    images: ["/unnamed.png"],
   },
   icons: {
     icon: "/unnamed.png",
     apple: "/unnamed.png",
   },
+  metadataBase: new URL("https://portfolio.huvinesh.com"),
+  colorScheme: "dark",
+  themeColor: "#2c3e50",
 };
 
 export default function RootLayout({
@@ -63,7 +84,7 @@ export default function RootLayout({
           as="style"
         />
       </head>
-      <body className={`${inter.variable} ${pressStart2P.variable} ${vt323.variable}`}>
+      <body className={`${inter.variable} ${pressStart2P.variable} ${vt323.variable} ${spaceMono.variable}`}>
         <ThemeProvider>
           <SoundToggle />
           {/* Skip navigation link for accessibility */}
