@@ -8,6 +8,7 @@ import IntroScreen from '@/components/IntroScreen';
 import SoundToggle from '@/components/SoundToggle';
 import SystemTime from '@/components/SystemTime';
 import ThemeToggle from '@/components/ThemeToggle';
+import VisitorAdminTool from '@/components/VisitorAdminTool';
 import { portfolioData, sectionKeys } from '@/components/portfolioData'; // Import data and keys
 import { soundEffects } from '@/utils/SoundEffects'; // Import sound effects
 import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation'; // Import custom hook
@@ -105,6 +106,9 @@ export default function Home() {
 
   return (
     <>
+      {/* Admin Tool for Visitor Count (only shown in development or with ?admin=true) */}
+      <VisitorAdminTool />
+      
       {/* Show intro screen if in intro state */}
       {showIntro ? (
         <IntroScreen onComplete={handleIntroComplete} />

@@ -527,6 +527,32 @@ body::after {
     contain: paint;
 }
 
+/* Mobile adjustments for screen area */
+@media (max-width: 480px) {
+    .screen {
+        padding: 15px;
+        font-size: 0.85rem;
+    }
+    
+    /* Adjust header for better visibility on mobile */
+    .content-area h2 {
+        font-size: 1.1em;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        line-height: 1.3;
+    }
+    
+    /* Ensure content has sufficient spacing from top to avoid timer overlap */
+    .content-area {
+        padding-top: 10px;
+    }
+    
+    /* Adjust the content wrapper for mobile */
+    .content-wrapper {
+        min-height: 150px;
+    }
+}
+
 /* CRT Effects */
 
 /* Scanlines - horizontal lines across the screen */
@@ -643,6 +669,9 @@ body::after {
     font-family: var(--font-pixel-secondary);
     text-transform: uppercase;
     letter-spacing: 1px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 .content-area ul { list-style: none; padding-left: 0; margin-top: 0.5em; margin-bottom: 0.5em; }
 .content-area li { 

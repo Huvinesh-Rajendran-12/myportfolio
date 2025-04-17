@@ -1,32 +1,10 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-
-// Path to the visitor count file
-const visitorFilePath = path.join(process.cwd(), 'visitors.txt');
-
-// Function to get the current visitor count
-function getVisitorCount(): number {
-  try {
-    if (fs.existsSync(visitorFilePath)) {
-      const count = parseInt(fs.readFileSync(visitorFilePath, 'utf8').trim(), 10);
-      return isNaN(count) ? 0 : count;
-    }
-    return 0;
-  } catch (error) {
-    console.error('Error reading visitor count:', error);
-    return 0;
-  }
-}
-
-// Function to update the visitor count
-function updateVisitorCount(count: number): void {
-  try {
-    fs.writeFileSync(visitorFilePath, count.toString(), 'utf8');
-  } catch (error) {
-    console.error('Error updating visitor count:', error);
-  }
-}
+import { cookies } from 'next/headers';
+import { 
+  getVisitorCount, 
+  incrementVisitorCount, 
+  generateVisitorId 
+} from '@/utils/visitorCounterUtils';
 
 // GET handler to retrieve current visitor count
 export async function GET() {
@@ -34,10 +12,39 @@ export async function GET() {
   return NextResponse.json({ count });
 }
 
-// POST handler to increment visitor count
+// POST handler to increment visitor count if this is a new visitor
 export async function POST() {
+  const cookieStore = cookies();
+  const visitorId = cookieStore.get('visitor-id');
+  
   let count = getVisitorCount();
-  count += 1;
-  updateVisitorCount(count);
-  return NextResponse.json({ count });
+  let hasIncremented = false;
+  
+  // Only increment if no visitor cookie exists
+  if (!visitorId) {
+    count = incrementVisitorCount();
+    hasIncremented = true;
+  }
+  
+  // Create a response
+  const response = NextResponse.json({ 
+    count,
+    // Let the client know if this was a new visitor
+    isNewVisitor: hasIncremented
+  });
+  
+  // Set visitor cookie if it doesn't exist yet
+  if (!visitorId) {
+    // Set cookie to expire in 30 days
+    response.cookies.set({
+      name: 'visitor-id',
+      value: generateVisitorId(),
+      httpOnly: true,
+      path: '/',
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+      sameSite: 'strict'
+    });
+  }
+  
+  return response;
 }
